@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#0b5ed7">
 <title>ExamHub Rwanda — EAUR</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
     --primary:#0b5ed7; --primary-dark:#084298; --primary-light:#e7f1ff;
@@ -24,31 +24,61 @@
   html,body{height:100%}
   body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
+  /* ============================================================
+     ANIMATIONS
+     ============================================================ */
   @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-  @keyframes fadeInUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
   @keyframes fadeInDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
   @keyframes scaleIn{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
-  @keyframes popIn{0%{opacity:0;transform:scale(.6)}70%{transform:scale(1.05)}100%{opacity:1;transform:scale(1)}}
-  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  @keyframes popIn{0%{opacity:0;transform:scale(.5)}70%{transform:scale(1.1)}100%{opacity:1;transform:scale(1)}}
+  @keyframes float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-15px) rotate(5deg)}}
   @keyframes spin{to{transform:rotate(360deg)}}
   @keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
   @keyframes ripple{to{transform:scale(4);opacity:0}}
-  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
   @keyframes slideInRight{from{opacity:0;transform:translateX(100px)}to{opacity:1;transform:translateX(0)}}
   @keyframes slideOutRight{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(100px)}}
+  
+  /* BUTTON ANIMATION */
+  @keyframes btnPulse {
+    0% { box-shadow: 0 0 0 0 rgba(11, 94, 215, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(11, 94, 215, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(11, 94, 215, 0); }
+  }
+  
+  /* CONFETTI ANIMATION */
+  @keyframes confettiFall {
+    0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+  }
 
-  /* BUTTONS */
+  /* FLOATING ICONS (Pens & Books) */
+  .floating-icons { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; z-index: 1; }
+  .f-icon { position: absolute; opacity: 0.15; animation: float 6s ease-in-out infinite; }
+  .f-icon.pen { font-size: 4rem; top: 10%; left: 10%; animation-delay: 0s; }
+  .f-icon.book { font-size: 5rem; bottom: 15%; right: 10%; animation-delay: 2s; }
+  .f-icon.pen2 { font-size: 3rem; bottom: 20%; left: 20%; animation-delay: 1s; }
+  .f-icon.book2 { font-size: 4rem; top: 15%; right: 15%; animation-delay: 3s; }
+
+  /* ============================================================
+     BUTTONS
+     ============================================================ */
   .btn{
     display:inline-flex;align-items:center;justify-content:center;gap:8px;
-    padding:12px 22px;border:none;border-radius:12px;cursor:pointer;
-    font-size:.9rem;font-weight:700;font-family:inherit;
+    padding:12px 24px;border:none;border-radius:12px;cursor:pointer;
+    font-size:.95rem;font-weight:700;font-family:inherit;
     transition:all .28s cubic-bezier(.22,1,.36,1);
     text-decoration:none;white-space:nowrap;position:relative;overflow:hidden;
-    transform:translateZ(0);min-height:44px;
+    transform:translateZ(0);min-height:48px;letter-spacing:0.5px;
   }
   .btn:active{transform:scale(.96)}
-  .btn-primary{background:linear-gradient(135deg,#3b82f6,#0b5ed7 60%,#084298);color:#fff;box-shadow:0 4px 14px rgba(11,94,215,.35)}
-  .btn-primary:hover{box-shadow:0 8px 25px rgba(11,94,215,.5);transform:translateY(-2px)}
+  .btn-primary{
+    background:linear-gradient(135deg,#3b82f6,#0b5ed7 60%,#084298);
+    color:#fff;box-shadow:0 4px 15px rgba(11,94,215,.4);
+    animation: btnPulse 2s infinite;
+  }
+  .btn-primary:hover{box-shadow:0 8px 25px rgba(11,94,215,.6);transform:translateY(-2px)}
   .btn-success{background:linear-gradient(135deg,#34d399,#198754 60%,#0f5132);color:#fff;box-shadow:0 4px 14px rgba(25,135,84,.35)}
   .btn-success:hover{box-shadow:0 8px 25px rgba(25,135,84,.5);transform:translateY(-2px)}
   .btn-danger{background:linear-gradient(135deg,#f87171,#dc3545 60%,#b02a37);color:#fff;box-shadow:0 4px 14px rgba(220,53,69,.35)}
@@ -57,32 +87,49 @@
   .btn-warning:hover{box-shadow:0 8px 25px rgba(255,193,7,.55);transform:translateY(-2px)}
   .btn-purple{background:linear-gradient(135deg,#a78bfa,#6f42c1 60%,#59359a);color:#fff;box-shadow:0 4px 14px rgba(111,66,193,.35)}
   .btn-purple:hover{box-shadow:0 8px 25px rgba(111,66,193,.5);transform:translateY(-2px)}
-  .btn-ghost{background:transparent;color:var(--muted);border:1.5px solid var(--border)}
+  .btn-ghost{background:transparent;color:var(--muted);border:1.5px solid var(--border);animation:none;}
   .btn-ghost:hover{background:#f9fafb;transform:translateY(-1px);border-color:#cbd5e1}
-  .btn-sm{padding:8px 14px;font-size:.8rem;border-radius:9px;min-height:36px;gap:5px}
+  .btn-sm{padding:8px 14px;font-size:.8rem;border-radius:9px;min-height:36px;gap:5px; animation:none;}
   .btn-block{width:100%}
   .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.6);transform:scale(0);animation:ripple .6s ease-out;pointer-events:none}
 
-  /* AUTH PAGE */
+  /* ============================================================
+     AUTH PAGES (LOGIN & REGISTER)
+     ============================================================ */
   .auth-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;position:relative;overflow:hidden;background:linear-gradient(135deg,#0b5ed7 0%,#6f42c1 50%,#0b5ed7 100%);background-size:300% 300%;animation:gradientShift 12s ease infinite}
-  .auth-page::before,.auth-page::after{content:'';position:absolute;border-radius:50%;background:rgba(255,255,255,.08);pointer-events:none}
-  .auth-page::before{width:400px;height:400px;top:-150px;left:-150px;animation:float 8s ease-in-out infinite}
-  .auth-page::after{width:300px;height:300px;bottom:-100px;right:-100px;animation:float 10s ease-in-out infinite reverse}
-  .auth-card{width:100%;max-width:440px;background:#fff;border-radius:22px;padding:34px 30px;box-shadow:0 25px 60px rgba(0,0,0,.25);position:relative;z-index:2;animation:fadeInUp .6s cubic-bezier(.22,1,.36,1) both}
+  
+  /* ROTATOR KURI RECTANGLE YA LOGIN */
+  .auth-card{
+    width:100%;max-width:440px;background:rgba(255, 255, 255, 0.95);backdrop-filter:blur(10px);
+    border-radius:24px;padding:40px 32px;box-shadow:0 25px 60px rgba(0,0,0,.3);
+    position:relative;z-index:2;animation:fadeInUp .6s cubic-bezier(.22,1,.36,1) both;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  /* KUGIRA NGO HABEHO ROTATOR KURI RECTANGLE */
+  .auth-card::before {
+    content: ''; position: absolute; top: -4px; left: -4px; right: -4px; bottom: -4px;
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    background-size: 400%;
+    z-index: -1; border-radius: 28px;
+    animation: gradientShift 10s linear infinite;
+    filter: blur(8px); opacity: 0.8;
+  }
   .auth-card.wide{max-width:700px}
-  .auth-logo{text-align:center;margin-bottom:26px}
-  .auth-logo .logo-icon{font-size:3rem;margin-bottom:10px;display:inline-block;animation:popIn .6s cubic-bezier(.34,1.56,.64,1) .2s both}
-  .auth-logo h1{font-size:1.5rem;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--purple));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:fadeInUp .5s ease .3s both}
-  .auth-logo p{font-size:.85rem;color:var(--muted);animation:fadeInUp .5s ease .4s both}
 
-  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .auth-logo{text-align:center;margin-bottom:26px; position: relative; z-index: 2;}
+  .auth-logo .logo-icon{font-size:3rem;margin-bottom:10px;display:inline-block;animation:popIn .6s cubic-bezier(.34,1.56,.64,1) .2s both}
+  .auth-logo h1{font-size:1.8rem;font-weight:800;font-family:'Poppins', sans-serif;background:linear-gradient(135deg,var(--primary),var(--purple));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:fadeInUp .5s ease .3s both}
+  .auth-logo p{font-size:.9rem;color:var(--muted);animation:fadeInUp .5s ease .4s both}
+
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px; position:relative; z-index:2;}
   .form-group{display:flex;flex-direction:column;gap:6px;position:relative}
   .form-group.full{grid-column:1 / -1}
   label{font-size:.82rem;font-weight:700;color:#374151;transition:color .2s;display:block}
   .form-group:focus-within label{color:var(--primary)}
-  input,select,textarea{padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:.92rem;font-family:inherit;background:#fff;transition:all .25s cubic-bezier(.22,1,.36,1);width:100%;color:var(--text)}
-  input:hover,select:hover{border-color:#cbd5e1}
-  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 4px rgba(11,94,215,.12);transform:translateY(-1px)}
+  input,select,textarea{padding:14px 16px;border:1.5px solid var(--border);border-radius:12px;font-size:.92rem;font-family:inherit;background:#f9fafb;transition:all .25s cubic-bezier(.22,1,.36,1);width:100%;color:var(--text)}
+  input:hover,select:hover{border-color:#cbd5e1; background:#fff;}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 4px rgba(11,94,215,.12);transform:translateY(-1px); background:#fff;}
   select:disabled{background:#f3f4f6;cursor:not-allowed;color:var(--muted)}
   input[type=file]{padding:9px;cursor:pointer}
   input[type=file]::file-selector-button{padding:7px 14px;border:none;border-radius:8px;background:var(--primary-light);color:var(--primary);font-weight:600;cursor:pointer;margin-right:10px;transition:.2s;font-family:inherit}
@@ -91,7 +138,29 @@
   .error{color:var(--danger);font-size:.85rem;margin-top:8px;display:none;padding:11px 14px;background:var(--danger-light);border-radius:10px;border-left:3px solid var(--danger);font-weight:500}
   .error.show{display:block;animation:shake .4s ease, fadeIn .3s ease}
 
-  /* APP LAYOUT */
+  .auth-links{display:flex;flex-direction:column;gap:12px;margin-top:20px;text-align:center; position:relative; z-index:2;}
+  .auth-links a{font-size:.95rem;color:var(--primary);text-decoration:none;font-weight:700;transition:.2s; padding: 10px; border-radius: 10px; background: #e7f1ff;}
+  .auth-links a:hover{color:#fff; background:var(--primary); transform:translateY(-2px); box-shadow:0 4px 10px rgba(11,94,215,.3);}
+
+  /* ============================================================
+     CONGRATULATIONS OVERLAY (CONFETTI)
+     ============================================================ */
+  .confetti-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(255, 255, 255, 0.95); z-index: 9999;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
+  }
+  .confetti-overlay.show { opacity: 1; pointer-events: auto; }
+  .congrats-box { background: #fff; padding: 40px; border-radius: 24px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,.1); position: relative; z-index: 2; animation: popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); max-width: 400px; width: 90%; border: 2px solid #e5e7eb;}
+  .congrats-box .icon { font-size: 4rem; margin-bottom: 20px; }
+  .congrats-box h2 { font-size: 1.8rem; color: var(--success); margin-bottom: 10px; font-family: 'Poppins', sans-serif;}
+  .congrats-box p { color: var(--muted); margin-bottom: 24px; font-size: 1rem;}
+  .confetti { position: absolute; width: 10px; height: 10px; background-color: #f00; opacity: 0; animation: confettiFall 3s linear infinite; z-index: 1;}
+  
+  /* ============================================================
+     APP LAYOUT
+     ============================================================ */
   .app-layout{display:flex;min-height:100vh;animation:fadeIn .4s ease}
   .sidebar{
     width:var(--sidebar-w);background:#fff;border-right:1px solid var(--border);
@@ -104,7 +173,6 @@
   .sidebar-header h2{font-size:1rem;font-weight:800;color:var(--primary-dark)}
   .sidebar-header small{font-size:.72rem;color:var(--muted);font-weight:500}
   
-  /* CLOSE BUTTON KURI SIDEBAR (kuri mobile) */
   .sidebar-close{
     display:none;background:#f3f4f6;border:none;font-size:1.2rem;color:var(--text);
     width:34px;height:34px;border-radius:50%;cursor:pointer;align-items:center;justify-content:center;
@@ -143,12 +211,12 @@
   .page-header h1{font-size:1.5rem;font-weight:800;color:var(--text)}
   .page-header p{font-size:.88rem;color:var(--muted)}
 
-  /* TOPBAR (kuri mobile) - HANO HARI IBINYURANYE */
+  /* TOPBAR (kuri mobile) */
   .mobile-topbar{
     display:none;background:linear-gradient(135deg, #fff, #f8fafc);
     padding:10px 16px;border-bottom:1px solid var(--border);
     position:sticky;top:0;z-index:50;
-    align-items:center;justify-content:space-between; /* Ibi bituma menu iba ibumoso, ifoto ibe iburyo */
+    align-items:center;justify-content:space-between;
     box-shadow:0 2px 10px rgba(0,0,0,.05);
   }
   .mobile-topbar .hamburger{
@@ -157,7 +225,7 @@
     transition:background .2s, transform .2s;display:flex;align-items:center;justify-content:center;
   }
   .mobile-topbar .hamburger:active{background:#e2e8f0;transform:scale(.9)}
-  .mobile-topbar h2{font-size:1.05rem;font-weight:800;color:var(--primary-dark);letter-spacing:-.5px; text-align:center; flex:1;} /* Flex:1 bituma title iba hagati */
+  .mobile-topbar h2{font-size:1.05rem;font-weight:800;color:var(--primary-dark);letter-spacing:-.5px; text-align:center; flex:1;}
   
   .mobile-profile-btn{
     width:38px;height:38px;border-radius:50%;
@@ -171,14 +239,13 @@
   .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99;animation:fadeIn .25s;backdrop-filter:blur(2px)}
   .overlay.show{display:block}
 
-  /* CARDS */
+  /* CARDS & UI */
   .card{background:var(--card);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);margin-bottom:20px;animation:fadeInUp .45s cubic-bezier(.22,1,.36,1) both;}
   .card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px}
   .card h2{font-size:1.1rem;font-weight:700;color:var(--text)}
   .card h3{font-size:.95rem;font-weight:700;color:var(--primary-dark);margin:16px 0 10px}
   .card h2 .emoji, .card h3 .emoji{margin-right:6px;display:inline-block}
 
-  /* STATS */
   .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:20px}
   .stat{background:#fff;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden;animation:fadeInUp .5s both}
   .stat .stat-icon{position:absolute;right:14px;top:14px;font-size:1.6rem;opacity:.15;}
@@ -190,7 +257,6 @@
   .stat.purple .num{color:var(--purple)}
   .stat.red .num{color:var(--danger)}
 
-  /* ENROLLED CAT CARDS */
   .cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
   .cat-card{background:#fff;border:1.5px solid var(--border);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:12px;}
   .cat-card .cat-header{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
@@ -205,7 +271,6 @@
   .cat-card .cat-score .score-total{font-size:.9rem;color:var(--muted);font-weight:600}
   .cat-card .cat-score .score-label{margin-left:auto;font-size:.75rem;color:var(--muted);text-transform:uppercase;font-weight:700;letter-spacing:.5px}
 
-  /* TABLES */
   .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--radius-sm);border:1px solid var(--border);position:relative;}
   table{width:100%;border-collapse:collapse;font-size:.87rem;min-width:600px}
   th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;}
@@ -214,7 +279,6 @@
   tbody tr:hover td{background:#f9fafb}
   .total-cell{font-weight:800;color:var(--success);font-size:.95rem}
 
-  /* BADGES & GRADES */
   .badge{display:inline-block;padding:4px 11px;border-radius:20px;font-size:.75rem;font-weight:700;}
   .badge-pending{background:var(--warning-light);color:#856404}
   .badge-approved{background:var(--success-light);color:#0f5132}
@@ -226,13 +290,11 @@
   .grade-d{background:#ffe5d0;color:#984c0c}
   .grade-f{background:#f8d7da;color:#842029}
 
-  /* FILTERS & SEARCH */
   .filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:16px}
   .search-box{position:relative;margin-bottom:16px}
   .search-box input{padding-left:44px}
   .search-box::before{content:'🔍';position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:1rem;opacity:.5}
 
-  /* PDF GRID */
   .pdf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
   .pdf-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);padding:18px;display:flex;flex-direction:column;gap:10px;}
   .pdf-card .pdf-icon{font-size:2rem;}
@@ -251,7 +313,6 @@
   .page-section.active{display:block;animation:fadeInUp .4s ease}
   .hidden{display:none !important}
 
-  /* TOASTS */
   .toast-container{position:fixed;top:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:10px;pointer-events:none}
   .toast{background:#fff;padding:14px 20px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.15);display:flex;align-items:center;gap:10px;font-size:.9rem;font-weight:600;animation:slideInRight .4s both;min-width:260px;max-width:400px;border-left:4px solid var(--primary);pointer-events:auto}
   .toast.success{border-left-color:var(--success)}
@@ -259,7 +320,6 @@
   .toast.warning{border-left-color:var(--warning)}
   .toast.hide{animation:slideOutRight .3s ease forwards}
 
-  /* MODALS */
   .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(3px)}
   .modal-overlay.show{display:flex;animation:fadeIn .25s ease}
   .modal{background:#fff;border-radius:16px;padding:26px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;animation:scaleIn .3s cubic-bezier(.22,1,.36,1);box-shadow:0 25px 60px rgba(0,0,0,.25)}
@@ -268,15 +328,6 @@
   .modal-close{background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--muted);padding:4px 8px;border-radius:8px;transition:.2s}
   .modal-close:hover{background:#f3f4f6;color:var(--text)}
 
-  .auth-links{display:flex;flex-direction:column;gap:10px;margin-top:16px;text-align:center}
-  .auth-links a{font-size:.85rem;color:var(--primary);text-decoration:none;font-weight:600;transition:.2s}
-  .auth-links a:hover{color:var(--primary-dark);text-decoration:underline}
-  .auth-links .divider{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:.75rem}
-  .auth-links .divider::before,.auth-links .divider::after{content:'';flex:1;height:1px;background:var(--border)}
-
-  /* ============================================================
-     MOBILE RESPONSIVE
-     ============================================================ */
   @media(max-width:900px){
     .sidebar{transform:translateX(-100%)}
     .sidebar.open{transform:translateX(0)}
@@ -291,28 +342,17 @@
     .card{padding:16px;border-radius:12px}
     .pdf-grid{grid-template-columns:1fr}
     .cat-grid{grid-template-columns:1fr}
-    
-    /* Korohereza table kuri telefone */
     table{font-size:.8rem;min-width:600px;}
     th,td{padding:10px}
-    
-    /* Kwerekana ko hari ibindi bice bya table ushobora kureba ukanuka */
     .table-wrap::after {
       content: '← Sunika urebe ibindi →';
-      display: block;
-      text-align: center;
-      font-size: 0.7rem;
-      color: var(--muted);
-      padding: 8px;
-      background: #f9fafb;
-      border-top: 1px solid var(--border);
+      display: block;text-align: center;font-size: 0.7rem;color: var(--muted);
+      padding: 8px;background: #f9fafb;border-top: 1px solid var(--border);
     }
+    .auth-card { padding: 30px 20px; }
   }
-
   @media(max-width:480px){
-    .auth-card{padding:26px 20px}
-    .auth-logo .logo-icon{font-size:2.5rem}
-    .auth-logo h1{font-size:1.3rem}
+    .auth-logo h1{font-size:1.5rem}
     .stats{grid-template-columns:1fr 1fr}
     .stat .num{font-size:1.5rem}
     .toast-container{top:10px;right:10px;left:10px}
@@ -330,39 +370,68 @@
 
 <div class="toast-container" id="toastContainer"></div>
 
+<!-- ============ CONFETTI / CONGRATULATIONS OVERLAY ============ -->
+<div class="confetti-overlay" id="congratsOverlay">
+  <div id="confettiContainer"></div>
+  <div class="congrats-box">
+    <div class="icon">🎉🎊🎓</div>
+    <h2>Congratulations!</h2>
+    <p>Kwiyandikisha byagenze neza!<br>Konti yawe yoherejwe kuri Admin. <br>Tegereza ko yemeza mbere yo kwinjira.</p>
+    <button class="btn btn-primary btn-block" onclick="closeCongratsAndGoToLogin()">📝 Injira Ubu</button>
+  </div>
+</div>
+
 <!-- ============ LOGIN PAGE ============ -->
 <div id="loginPage" class="auth-page">
+  <!-- FLOATING PENS & BOOKS -->
+  <div class="floating-icons">
+    <div class="f-icon pen">🖊️</div>
+    <div class="f-icon book">📚</div>
+    <div class="f-icon pen2">✏️</div>
+    <div class="f-icon book2">📖</div>
+  </div>
+
   <div class="auth-card">
     <div class="auth-logo">
       <div class="logo-icon">🎓</div>
-      <h1>ExamHub Rwanda</h1>
+      <h1>ExamHub</h1>
       <p>East African University Rwanda</p>
     </div>
+    
     <h2 style="text-align:center;font-size:1.1rem;font-weight:700;margin-bottom:20px;color:var(--text)">Injira mu konti yawe</h2>
+    
     <div class="form-grid">
       <div class="form-group full"><label>Email</label><input type="email" id="loginEmail" placeholder="email@example.com" autocomplete="email"></div>
       <div class="form-group full"><label>Ijambo ry'ibanga</label><input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password"></div>
     </div>
     <p id="loginError" class="error"></p>
-    <button class="btn btn-primary btn-block" style="margin-top:16px; height:50px; font-size:1rem;" onclick="handleLogin(this)">🚀 Injira</button>
+    
+    <!-- BUTTON YO KWINJIRA IFITE ANIMATION Y'AMABARA -->
+    <button class="btn btn-primary btn-block" style="margin-top:24px; height:55px; font-size:1.1rem;" onclick="handleLogin(this)">🚀 Injira</button>
+    
     <div class="auth-links">
-      <div class="divider">cyangwa</div>
       <a href="#" onclick="showRegisterPage(); return false;">📝 Nta konti? Iyandikishe nka umunyeshuri</a>
     </div>
-    <p style="margin-top:20px;font-size:.72rem;color:var(--muted);text-align:center;padding-top:16px;border-top:1px solid var(--border)">
-      Admin demo: <strong>admin@eaur.rw</strong> / <strong>admin123</strong>
-    </p>
   </div>
 </div>
 
 <!-- ============ REGISTER PAGE ============ -->
 <div id="registerPage" class="auth-page hidden">
+  <!-- FLOATING PENS & BOOKS -->
+  <div class="floating-icons">
+    <div class="f-icon pen">🖊️</div>
+    <div class="f-icon book">📚</div>
+    <div class="f-icon pen2">✏️</div>
+    <div class="f-icon book2">📖</div>
+  </div>
+
   <div class="auth-card wide">
     <div class="auth-logo">
       <div class="logo-icon">📝</div>
       <h1>Kwiyandikisha</h1>
       <p>Umunyeshuri mushya — EAUR</p>
     </div>
+    
     <div class="form-grid">
       <div class="form-group"><label>Izina ry'ibanze *</label><input type="text" id="regFirstName" placeholder="Jean"></div>
       <div class="form-group"><label>Izina ry'umuryango *</label><input type="text" id="regLastName" placeholder="Mugisha"></div>
@@ -375,9 +444,10 @@
       <div class="form-group"><label>Trimester *</label><select id="regTrimester"></select></div>
     </div>
     <p id="regError" class="error"></p>
-    <button class="btn btn-success btn-block" style="margin-top:16px; height:50px; font-size:1rem;" onclick="handleRegister(this)">✅ Iyandikishe</button>
+    
+    <button class="btn btn-success btn-block" style="margin-top:24px; height:55px; font-size:1.1rem;" onclick="handleRegister(this)">✅ Iyandikishe</button>
+    
     <div class="auth-links">
-      <div class="divider">cyangwa</div>
       <a href="#" onclick="showLoginPage(); return false;">← Usanzwe ufite konti? Injira</a>
     </div>
   </div>
@@ -410,7 +480,6 @@
     </aside>
     <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
     <main class="main-content">
-      <!-- MOBILE TOPBAR YAHINDUWE: MENU IBUMOSO, USER ICON IBURYO -->
       <div class="mobile-topbar">
         <button class="hamburger" onclick="openSidebar()">☰</button>
         <h2>ExamHub EAUR</h2>
@@ -484,7 +553,6 @@
     </aside>
     <div class="overlay" id="adminOverlay" onclick="closeAdminSidebar()"></div>
     <main class="main-content">
-      <!-- MOBILE TOPBAR ADMIN -->
       <div class="mobile-topbar">
         <button class="hamburger" onclick="openAdminSidebar()">☰</button>
         <h2>ExamHub Admin</h2>
@@ -673,39 +741,52 @@
   </div>
 </div>
 
+<!-- =========================================================
+     FIREBASE IMPORTS & CONFIG
+     ========================================================= -->
+<script type="module">
+  // --- IBI NI HO USHYIRA CONFIG YAWE YA FIREBASE ---
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getFirestore, collection, doc, setDoc, getDocs, query, where, updateDoc, deleteDoc, addDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+const firebaseConfig = {
+  apiKey: "AIzaSyB-O0scHYyCvym0EfxyUn-uPA5AD66GM-g",
+  authDomain: "rwandahub.firebaseapp.com",
+  projectId: "rwandahub",
+  storageBucket: "rwandahub.firebasestorage.app",
+  messagingSenderId: "1038573627957",
+  appId: "1:1038573627957:web:1df573adc06421e6e59f7c"
+};
+
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const auth = getAuth(app);
+
+  // --- EAUR CONFIG ---
+  window.EAUR_CONFIG = {
+    campuses: ['Nyagatare Campus','Kigali Campus'],
+    schools: {
+      'School of Business Administration and Management Studies': ['Economics','Accounting','Finance','Marketing','Procurement','Human Resource Management','Credit Management','Leisure, Tourism and Hotel Management'],
+      'School of Education': ['Mathematics and Computer Science with Education','Mathematics and Physics with Education','History and Geography with Education'],
+      'School of Mass Communication': ['Mass Communication'],
+      'School of Film Making and Film Production': ['Film Making and Production'],
+      'School of Industrial Art and Design': ['Industrial and Fine Arts','Industrial Design','Fashion Design','Visual Communication'],
+      'School of Hospitality, Leisure and Tourism Management': ['Leisure, Tourism and Hotel Management','Hospitality and Hotel Management']
+    },
+    years: ['Year 1','Year 2','Year 3','Year 4'],
+    trimesters: ['Trimester 1','Trimester 2','Trimester 3']
+  };
+
+  window.db = db;
+  window.auth = auth;
+  window.firebaseFunctions = { collection, doc, setDoc, getDocs, query, where, updateDoc, deleteDoc, addDoc, getDoc, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut };
+</script>
+
 <script>
 /* =========================================================
-   EAUR CONFIG & DATA
+   UI HELPERS
    ========================================================= */
-const EAUR_CONFIG = {
-  campuses: ['Nyagatare Campus','Kigali Campus'],
-  schools: {
-    'School of Business Administration and Management Studies': ['Economics','Accounting','Finance','Marketing','Procurement','Human Resource Management','Credit Management','Leisure, Tourism and Hotel Management'],
-    'School of Education': ['Mathematics and Computer Science with Education','Mathematics and Physics with Education','History and Geography with Education'],
-    'School of Mass Communication': ['Mass Communication'],
-    'School of Film Making and Film Production': ['Film Making and Production'],
-    'School of Industrial Art and Design': ['Industrial and Fine Arts','Industrial Design','Fashion Design','Visual Communication'],
-    'School of Hospitality, Leisure and Tourism Management': ['Leisure, Tourism and Hotel Management','Hospitality and Hotel Management']
-  },
-  years: ['Year 1','Year 2','Year 3','Year 4'],
-  trimesters: ['Trimester 1','Trimester 2','Trimester 3']
-};
-
-const DB = {
-  get(key){ try{ return JSON.parse(localStorage.getItem(key)) || []; }catch(e){ return []; } },
-  set(key,val){ localStorage.setItem(key, JSON.stringify(val)); },
-  keyStudents: 'eaur_students', keyResults: 'eaur_results',
-  keyAdmins: 'eaur_admins', keyPdfs: 'eaur_pdfs', keySession: 'eaur_session'
-};
-
-(function seedAdmin(){
-  const admins = DB.get(DB.keyAdmins);
-  if(!admins.length){
-    admins.push({ id:'admin-1', name:'Super Admin', email:'admin@eaur.rw', password:'admin123', role:'admin' });
-    DB.set(DB.keyAdmins, admins);
-  }
-})();
-
 function $(id){ return document.getElementById(id); }
 function showError(elId,msg){ const e=$(elId); e.textContent=msg; e.classList.add('show'); }
 function hideError(elId){ const e=$(elId); e.textContent=''; e.classList.remove('show'); }
@@ -775,8 +856,16 @@ document.addEventListener('click', function(e){
 /* =========================================================
    AUTH & ROUTING
    ========================================================= */
-function showLoginPage(){ $('registerPage').classList.add('hidden'); $('loginPage').classList.remove('hidden'); hideError('loginError'); }
-function showRegisterPage(){ $('loginPage').classList.add('hidden'); $('registerPage').classList.remove('hidden'); hideError('regError'); }
+function showLoginPage(){ 
+  $('registerPage').classList.add('hidden'); 
+  $('loginPage').classList.remove('hidden'); 
+  hideError('loginError'); 
+}
+function showRegisterPage(){ 
+  $('loginPage').classList.add('hidden'); 
+  $('registerPage').classList.remove('hidden'); 
+  hideError('regError'); 
+}
 
 function initRegisterForm(){
   fillSelect($('regCampus'), EAUR_CONFIG.campuses, 'Hitamo Campus');
@@ -795,7 +884,40 @@ function onSchoolChange(){
   prog.disabled = false;
 }
 
-function handleRegister(btn){
+/* =========================================================
+   CONFETTI LOGIC
+   ========================================================= */
+function showCongratulations() {
+  const overlay = $('congratsOverlay');
+  const container = $('confettiContainer');
+  container.innerHTML = '';
+  
+  const colors = ['#0b5ed7', '#ffc107', '#198754', '#dc3545', '#6f42c1', '#0dcaf0'];
+  for (let i = 0; i < 100; i++) {
+    const confetti = document.createElement('div');
+    confetti.classList.add('confetti');
+    confetti.style.left = Math.random() * 100 + 'vw';
+    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+    confetti.style.animationDelay = Math.random() * 2 + 's';
+    if (Math.random() > 0.5) confetti.style.borderRadius = '50%';
+    else confetti.style.width = '8px'; confetti.style.height = '16px';
+    
+    container.appendChild(confetti);
+  }
+  
+  overlay.classList.add('show');
+}
+
+function closeCongratsAndGoToLogin() {
+  $('congratsOverlay').classList.remove('show');
+  showLoginPage();
+}
+
+/* =========================================================
+   FIREBASE ACTIONS (Register & Login)
+   ========================================================= */
+async function handleRegister(btn){
   hideError('regError');
   const first=$('regFirstName').value.trim(), last=$('regLastName').value.trim();
   const email=$('regEmail').value.trim().toLowerCase(), pass=$('regPassword').value;
@@ -806,79 +928,153 @@ function handleRegister(btn){
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showError('regError','Email ntiyemewe');
   if(pass.length < 6) return showError('regError','Ijambo ry\'ibanga: nibura inyuguti 6');
 
-  const students = DB.get(DB.keyStudents);
-  if(students.some(s => s.email === email)) return showError('regError','Iyi email yamaze kwiyandikisha');
-
   setLoading(btn, true, 'Tubika...');
-  setTimeout(() => {
-    students.push({ id: uid('stu'), firstName:first, lastName:last, email, password:pass, campus, school, programme:prog, year, trimester:tri, role:'student', approvalStatus:'pending', createdAt:new Date().toISOString() });
-    DB.set(DB.keyStudents, students);
+  
+  try {
+    const { createUserWithEmailAndPassword, doc, setDoc } = window.firebaseFunctions;
+    
+    // 1. Kora konti muri Firebase Auth
+    const userCredential = await createUserWithEmailAndPassword(window.auth, email, pass);
+    const user = userCredential.user;
+
+    // 2. Bika amakuru mu Firestore
+    await setDoc(doc(window.db, "students", user.uid), {
+      firstName: first,
+      lastName: last,
+      email: email,
+      campus: campus,
+      school: school,
+      programme: prog,
+      year: year,
+      trimester: tri,
+      role: 'student',
+      approvalStatus: 'pending',
+      createdAt: new Date().toISOString()
+    });
+
     setLoading(btn, false);
-    showToast('Kwiyandikisha byagenze neza! Tegereza Admin.', 'success');
-    setTimeout(() => {
-      showLoginPage();
-      $('loginEmail').value = email;
-      $('loginPassword').value = '';
-    }, 1200);
-  }, 500);
+    showCongratulations(); // Hano turahamagara Confetti!
+    
+  } catch (error) {
+    setLoading(btn, false);
+    console.error(error);
+    if (error.code === 'auth/email-already-in-use') {
+      showError('regError', 'Iyi email yamaze kwiyandikisha.');
+    } else {
+      showError('regError', 'Habaye ikibazo: ' + error.message);
+    }
+  }
 }
 
-function handleLogin(btn){
+async function handleLogin(btn){
   hideError('loginError');
   const email=$('loginEmail').value.trim().toLowerCase();
   const pass=$('loginPassword').value;
   if(!email || !pass) return showError('loginError','Uzuza email na ijambo ry\'ibanga');
 
   setLoading(btn, true, 'Tugenzura...');
-  setTimeout(() => {
-    const admin = DB.get(DB.keyAdmins).find(a => a.email === email && a.password === pass);
-    if(admin){
-      DB.set(DB.keySession, { role:'admin', id:admin.id, name:admin.name, email:admin.email });
+  
+  try {
+    const { signInWithEmailAndPassword, doc, getDoc, query, collection, where, getDocs } = window.firebaseFunctions;
+
+    // 1. Gerageza kwinjira nka ADMIN (Ushobora gukoresha Localstorage cyangwa Firestore aha)
+    // Kuko tutifuza ko umuntu wese yiyandikisha nka admin, dushobora kugenzura email runaka.
+    if (email === "admin@eaur.rw" && pass === "admin123") {
+      // Iyi ni admin demo yawe yihishe (Ntibagaragara kuri page)
+      sessionStorage.setItem('eaur_session', JSON.stringify({ role:'admin', id:'admin-1', name:'Super Admin', email:email }));
       setLoading(btn, false);
-      showToast(`Murakaza neza, ${admin.name}!`, 'success');
+      showToast(`Murakaza neza, Super Admin!`, 'success');
       enterAdmin();
       return;
     }
-    const student = DB.get(DB.keyStudents).find(s => s.email === email && s.password === pass);
-    if(student){
-      if(student.approvalStatus !== 'approved'){
+
+    // 2. Injira nk'umunyeshuri
+    const userCredential = await signInWithEmailAndPassword(window.auth, email, pass);
+    const user = userCredential.user;
+
+    // 3. Reba niba yemejwe muri Firestore
+    const docRef = doc(window.db, "students", user.uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const studentData = docSnap.data();
+      if (studentData.approvalStatus !== 'approved') {
         setLoading(btn, false);
+        await window.firebaseFunctions.signOut(window.auth);
         return showError('loginError','⏳ Konti yawe ntiyemejwe na Admin. Tegereza.');
       }
-      DB.set(DB.keySession, { role:'student', id:student.id });
+      
+      sessionStorage.setItem('eaur_session', JSON.stringify({ role:'student', id:user.uid }));
       setLoading(btn, false);
-      showToast(`Murakaza neza, ${student.firstName}!`, 'success');
-      enterStudent();
-      return;
+      showToast(`Murakaza neza, ${studentData.firstName}!`, 'success');
+      await fetchStudentDataAndEnter(user.uid);
+      
+    } else {
+      setLoading(btn, false);
+      showError('loginError','Amakuru yawe ntabonetse muri system.');
     }
+
+  } catch (error) {
     setLoading(btn, false);
-    showError('loginError','Email cyangwa ijambo ry\'ibanga si byo');
-  }, 400);
+    console.error(error);
+    if (error.code === 'auth/invalid-credential' || error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+      showError('loginError','Email cyangwa ijambo ry\'ibanga si byo.');
+    } else {
+      showError('loginError','Habaye ikibazo: ' + error.message);
+    }
+  }
 }
 
-function logout(){ localStorage.removeItem(DB.keySession); location.reload(); }
-function getSession(){ try{ return JSON.parse(localStorage.getItem(DB.keySession)); }catch(e){ return null; } }
+async function logout(){ 
+  await window.firebaseFunctions.signOut(window.auth);
+  sessionStorage.removeItem('eaur_session'); 
+  location.reload(); 
+}
+function getSession(){ try{ return JSON.parse(sessionStorage.getItem('eaur_session')); }catch(e){ return null; } }
 
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', async () => {
   initRegisterForm();
   const s = getSession();
   if(!s){ return; }
   $('loginPage').classList.add('hidden');
   $('registerPage').classList.add('hidden');
   if(s.role === 'admin') enterAdmin();
-  else enterStudent();
+  else await fetchStudentDataAndEnter(s.id);
 });
 
 /* =========================================================
    STUDENT APP
    ========================================================= */
 let currentStudent = null;
-function enterStudent(){
-  const session = getSession();
-  const student = DB.get(DB.keyStudents).find(s => s.id === session.id);
-  if(!student) return logout();
-  currentStudent = student;
+let studentResults = [];
+let studentPdfs = [];
 
+async function fetchStudentDataAndEnter(uid) {
+  const { doc, getDoc, collection, query, where, getDocs } = window.firebaseFunctions;
+  try {
+    const docSnap = await getDoc(doc(window.db, "students", uid));
+    if(!docSnap.exists()) return logout();
+    currentStudent = { id: uid, ...docSnap.data() };
+
+    // Fata amanota
+    const qResults = query(collection(window.db, "results"), where("studentId", "==", uid));
+    const snapResults = await getDocs(qResults);
+    studentResults = snapResults.docs.map(d => ({ id: d.id, ...d.data() }));
+
+    // Fata PDFs (zihuye n'ishuri, porogaramu, umwaka)
+    const qPdfs = query(collection(window.db, "pdfs"), where("school", "==", currentStudent.school), where("programme", "==", currentStudent.programme), where("year", "==", currentStudent.year));
+    const snapPdfs = await getDocs(qPdfs);
+    studentPdfs = snapPdfs.docs.map(d => ({ id: d.id, ...d.data() }));
+
+    enterStudent();
+  } catch (e) {
+    console.error(e);
+    showToast("Ikibazo cyo kubona amakuru", "error");
+  }
+}
+
+function enterStudent(){
+  const student = currentStudent;
   $('loginPage').classList.add('hidden');
   $('registerPage').classList.add('hidden');
   $('adminApp').classList.add('hidden');
@@ -886,8 +1082,6 @@ function enterStudent(){
 
   const inits = initials(student.firstName, student.lastName);
   $('studentAvatar').textContent = inits;
-  
-  // KURI MOBILE, TURAKORESHA USER ICON AHO GUKORESHA INITIALS
   $('mobileAvatar').textContent = '👤'; 
 
   $('sidebarName').textContent = `${student.firstName} ${student.lastName}`;
@@ -913,22 +1107,20 @@ function studentNav(page){
 }
 
 function renderStudentStats(student){
-  const results = DB.get(DB.keyResults).filter(r => r.studentId === student.id);
-  const pdfs = DB.get(DB.keyPdfs).filter(p => p.school === student.school && p.programme === student.programme && p.year === student.year);
-  const avg = results.length ? (results.reduce((s,r) => s + ((r.cat||0)+(r.midterm||0)+(r.final||0)), 0) / results.length).toFixed(1) : '0';
-  const gpa = calculateGPA(results);
+  const avg = studentResults.length ? (studentResults.reduce((s,r) => s + ((r.cat||0)+(r.midterm||0)+(r.final||0)), 0) / studentResults.length).toFixed(1) : '0';
+  const gpa = calculateGPA(studentResults);
   $('studentStats').innerHTML = `
-    <div class="stat blue"><div class="stat-icon">📚</div><div class="num">${results.length}</div><div class="lbl">Amanota</div></div>
+    <div class="stat blue"><div class="stat-icon">📚</div><div class="num">${studentResults.length}</div><div class="lbl">Amanota</div></div>
     <div class="stat green"><div class="stat-icon">📈</div><div class="num">${avg}</div><div class="lbl">Average /100</div></div>
     <div class="stat yellow"><div class="stat-icon">🎯</div><div class="num">${gpa}</div><div class="lbl">GPA /4.0</div></div>
-    <div class="stat purple"><div class="stat-icon">📄</div><div class="num">${pdfs.length}</div><div class="lbl">PDF Exams</div></div>
+    <div class="stat purple"><div class="stat-icon">📄</div><div class="num">${studentPdfs.length}</div><div class="lbl">PDF Exams</div></div>
   `;
-  $('catCount').textContent = results.length;
-  $('pdfsCount').textContent = pdfs.length;
+  $('catCount').textContent = studentResults.length;
+  $('pdfsCount').textContent = studentPdfs.length;
 }
 
 function renderStudentHomeSummary(student){
-  const results = DB.get(DB.keyResults).filter(r => r.studentId === student.id);
+  const results = studentResults;
   const wrap = $('homeResultsSummary');
   if(!results.length){
     wrap.innerHTML = `<div class="empty-state"><div class="icon">📭</div><p>Nta manota arashyirwaho. Tegereza Admin.</p></div>`;
@@ -951,7 +1143,7 @@ function renderStudentHomeSummary(student){
 
 function renderStudentCATs(){
   if(!currentStudent) return;
-  const results = DB.get(DB.keyResults).filter(r => r.studentId === currentStudent.id);
+  const results = studentResults;
   const search = ($('catSearch').value || '').toLowerCase().trim();
   const filterSem = $('catFilterSemester').value;
 
@@ -1018,7 +1210,7 @@ function renderStudentCATs(){
 }
 
 function renderStudentPdfs(student){
-  const filtered = DB.get(DB.keyPdfs).filter(p => p.school === student.school && p.programme === student.programme && p.year === student.year);
+  const filtered = studentPdfs;
   const wrap = $('studentPdfs');
   if(!filtered.length){
     wrap.innerHTML = `<div class="card"><div class="empty-state"><div class="icon">📄</div><p>Nta PDF ya exam yabonetse.</p></div></div>`;
@@ -1062,7 +1254,7 @@ function renderStudentProfile(student){
 
 function openStudentChangePass(){
   const session = getSession();
-  const student = DB.get(DB.keyStudents).find(s => s.id === session.id);
+  const student = currentStudent;
   if(!student) return;
   currentStudentPassId = student.id;
   $('passStudentName').textContent = `${student.firstName} ${student.lastName}`;
@@ -1076,16 +1268,19 @@ function openSidebar(){ $('studentSidebar').classList.add('open'); $('overlay').
 function closeSidebar(){ $('studentSidebar').classList.remove('open'); $('overlay').classList.remove('show'); }
 
 /* =========================================================
-   ADMIN APP
+   ADMIN APP (Partially local storage until Firebase is fully wired)
    ========================================================= */
-function enterAdmin(){
-  const session = getSession();
+let adminStudents = [];
+let adminResults = [];
+let adminPdfs = [];
+
+async function enterAdmin(){
   $('loginPage').classList.add('hidden');
   $('registerPage').classList.add('hidden');
   $('studentApp').classList.add('hidden');
   $('adminApp').classList.remove('hidden');
-  $('adminName').textContent = session.name;
-
+  
+  await fetchAdminData();
   initAdminFilters();
   renderAdminStats();
   renderAdminStudents();
@@ -1094,6 +1289,23 @@ function enterAdmin(){
   initPdfForm();
   renderAdminPdfs();
   adminNav('dashboard');
+}
+
+async function fetchAdminData() {
+  const { collection, getDocs } = window.firebaseFunctions;
+  try {
+    const snapStudents = await getDocs(collection(window.db, "students"));
+    adminStudents = snapStudents.docs.map(d => ({ id: d.id, ...d.data() }));
+
+    const snapResults = await getDocs(collection(window.db, "results"));
+    adminResults = snapResults.docs.map(d => ({ id: d.id, ...d.data() }));
+
+    const snapPdfs = await getDocs(collection(window.db, "pdfs"));
+    adminPdfs = snapPdfs.docs.map(d => ({ id: d.id, ...d.data() }));
+  } catch(e) {
+    console.error("Kubona data byanze", e);
+    showToast("Kubona data byanze", "error");
+  }
 }
 
 function adminNav(page){
@@ -1135,25 +1347,21 @@ function initAdminFilters(){
 }
 
 function renderAdminStats(){
-  const students = DB.get(DB.keyStudents);
-  const results  = DB.get(DB.keyResults);
-  const pdfs     = DB.get(DB.keyPdfs);
   $('adminStats').innerHTML = `
-    <div class="stat blue"><div class="stat-icon">👥</div><div class="num">${students.length}</div><div class="lbl">Abanyeshuri</div></div>
-    <div class="stat yellow"><div class="stat-icon">⏳</div><div class="num">${students.filter(s=>s.approvalStatus==='pending').length}</div><div class="lbl">Pending</div></div>
-    <div class="stat green"><div class="stat-icon">✅</div><div class="num">${students.filter(s=>s.approvalStatus==='approved').length}</div><div class="lbl">Approved</div></div>
-    <div class="stat purple"><div class="stat-icon">📝</div><div class="num">${results.length}</div><div class="lbl">Amanota</div></div>
-    <div class="stat red"><div class="stat-icon">📄</div><div class="num">${pdfs.length}</div><div class="lbl">PDF Exams</div></div>
+    <div class="stat blue"><div class="stat-icon">👥</div><div class="num">${adminStudents.length}</div><div class="lbl">Abanyeshuri</div></div>
+    <div class="stat yellow"><div class="stat-icon">⏳</div><div class="num">${adminStudents.filter(s=>s.approvalStatus==='pending').length}</div><div class="lbl">Pending</div></div>
+    <div class="stat green"><div class="stat-icon">✅</div><div class="num">${adminStudents.filter(s=>s.approvalStatus==='approved').length}</div><div class="lbl">Approved</div></div>
+    <div class="stat purple"><div class="stat-icon">📝</div><div class="num">${adminResults.length}</div><div class="lbl">Amanota</div></div>
+    <div class="stat red"><div class="stat-icon">📄</div><div class="num">${adminPdfs.length}</div><div class="lbl">PDF Exams</div></div>
   `;
 }
 
 function renderAdminStudents(){
-  const students = DB.get(DB.keyStudents);
   const search = ($('searchStudents').value || '').toLowerCase().trim();
   const fS=$('filterSchool').value, fP=$('filterProgramme').value;
   const fY=$('filterYear').value, fT=$('filterTrimester').value, fSt=$('filterStatus').value;
 
-  const filtered = students.filter(s => {
+  const filtered = adminStudents.filter(s => {
     if(fS && s.school !== fS) return false;
     if(fP && s.programme !== fP) return false;
     if(fY && s.year !== fY) return false;
@@ -1190,26 +1398,30 @@ function renderAdminStudents(){
   `).join('');
 }
 
-function approveStudent(id){
-  const students = DB.get(DB.keyStudents);
-  const s = students.find(x => x.id === id);
-  if(!s) return;
-  s.approvalStatus = 'approved';
-  DB.set(DB.keyStudents, students);
-  showToast(`${s.firstName} ${s.lastName} yemejwe!`, 'success');
-  renderAdminStats(); renderAdminStudents(); renderResultStudentSelect();
+async function approveStudent(id){
+  const { doc, updateDoc } = window.firebaseFunctions;
+  try {
+    await updateDoc(doc(window.db, "students", id), { approvalStatus: 'approved' });
+    const s = adminStudents.find(x => x.id === id);
+    if(s) s.approvalStatus = 'approved';
+    showToast(`${s.firstName} ${s.lastName} yemejwe!`, 'success');
+    renderAdminStats(); renderAdminStudents(); renderResultStudentSelect();
+  } catch(e) { showToast("Byanze kwemeza", "error"); }
 }
 
-function deleteStudent(id){
+async function deleteStudent(id){
   if(!confirm('Siba uyu munyeshuri n\'amanota ye yose?')) return;
-  DB.set(DB.keyStudents, DB.get(DB.keyStudents).filter(s => s.id !== id));
-  DB.set(DB.keyResults, DB.get(DB.keyResults).filter(r => r.studentId !== id));
-  showToast('Umunyeshuri yasibwe', 'warning');
-  renderAdminStats(); renderAdminStudents(); renderResultStudentSelect(); renderAllResults();
+  const { doc, deleteDoc } = window.firebaseFunctions;
+  try {
+    await deleteDoc(doc(window.db, "students", id));
+    adminStudents = adminStudents.filter(s => s.id !== id);
+    showToast('Umunyeshuri yasibwe', 'warning');
+    renderAdminStats(); renderAdminStudents(); renderResultStudentSelect(); renderAllResults();
+  } catch(e) { showToast("Byanze gusiba", "error"); }
 }
 
 function renderResultStudentSelect(){
-  const students = DB.get(DB.keyStudents).filter(s => s.approvalStatus === 'approved');
+  const students = adminStudents.filter(s => s.approvalStatus === 'approved');
   const sel = $('resultStudent');
   if(!students.length){ sel.innerHTML = '<option value="">Nta munyeshuri wemejwe</option>'; return; }
   sel.innerHTML = '<option value="">Hitamo umunyeshuri</option>' + students.map(s => `<option value="${s.id}">${s.firstName} ${s.lastName} — ${s.programme}</option>`).join('');
@@ -1218,11 +1430,11 @@ function renderResultStudentSelect(){
 function onResultStudentChange(){
   const sid = $('resultStudent').value;
   if(!sid) return;
-  const s = DB.get(DB.keyStudents).find(x => x.id === sid);
+  const s = adminStudents.find(x => x.id === sid);
   if(s && s.trimester) $('resultSemester').value = s.trimester;
 }
 
-function saveResult(btn){
+async function saveResult(btn){
   hideError('resultError');
   const studentId=$('resultStudent').value, subject=$('resultSubject').value.trim();
   const semester=$('resultSemester').value;
@@ -1234,23 +1446,25 @@ function saveResult(btn){
   if(fin<0||fin>40) return showError('resultError','Final: 0 - 40');
 
   setLoading(btn, true, 'Tubika...');
-  setTimeout(() => {
-    const results = DB.get(DB.keyResults);
-    results.push({ id:uid('res'), studentId, subject, semester, cat, midterm:mid, final:fin, createdAt:new Date().toISOString() });
-    DB.set(DB.keyResults, results);
+  const { collection, addDoc } = window.firebaseFunctions;
+  
+  try {
+    await addDoc(collection(window.db, "results"), {
+      studentId, subject, semester, cat, midterm: mid, final: fin, createdAt: new Date().toISOString()
+    });
     $('resultSubject').value=''; $('resultCat').value=''; $('resultMid').value=''; $('resultFinal').value='';
     setLoading(btn, false);
     showToast('Amanota yabitswe!', 'success');
+    await fetchAdminData();
     renderAdminStats(); renderAllResults();
-  }, 400);
+  } catch(e) { setLoading(btn, false); showError('resultError', 'Byanze kubika: ' + e.message); }
 }
 
 function renderAllResults(){
-  const results=DB.get(DB.keyResults), students=DB.get(DB.keyStudents);
   const search = ($('searchResults').value || '').toLowerCase().trim();
   const fS=$('resFilterSchool').value, fP=$('resFilterProgramme').value, fSem=$('resFilterSemester').value;
 
-  const enriched = results.map(r => ({ ...r, student: students.find(x => x.id === r.studentId) || {} })).filter(r => {
+  const enriched = adminResults.map(r => ({ ...r, student: adminStudents.find(x => x.id === r.studentId) || {} })).filter(r => {
     if(!r.student.id) return false;
     if(fS && r.student.school !== fS) return false;
     if(fP && r.student.programme !== fP) return false;
@@ -1284,18 +1498,22 @@ function renderAllResults(){
   }).join('');
 }
 
-function deleteResult(id){
+async function deleteResult(id){
   if(!confirm('Siba aya manota?')) return;
-  DB.set(DB.keyResults, DB.get(DB.keyResults).filter(r => r.id !== id));
-  showToast('Amanota yasibwe', 'warning');
-  renderAdminStats(); renderAllResults();
+  const { doc, deleteDoc } = window.firebaseFunctions;
+  try {
+    await deleteDoc(doc(window.db, "results", id));
+    showToast('Amanota yasibwe', 'warning');
+    await fetchAdminData();
+    renderAdminStats(); renderAllResults();
+  } catch(e){ showToast("Byanze", "error"); }
 }
 
 let editingResultId = null;
 function openEditResult(id){
-  const r = DB.get(DB.keyResults).find(x => x.id === id);
+  const r = adminResults.find(x => x.id === id);
   if(!r) return;
-  const student = DB.get(DB.keyStudents).find(s => s.id === r.studentId);
+  const student = adminStudents.find(s => s.id === r.studentId);
   editingResultId = id;
   $('editStudentName').value = student ? `${student.firstName} ${student.lastName}` : '—';
   $('editSubject').value = r.subject;
@@ -1307,7 +1525,7 @@ function openEditResult(id){
   $('editResultModal').classList.add('show');
 }
 function closeEditResult(){ $('editResultModal').classList.remove('show'); editingResultId = null; }
-function saveEditedResult(btn){
+async function saveEditedResult(btn){
   hideError('editError');
   const subject=$('editSubject').value.trim(), semester=$('editSemester').value;
   const cat=parseFloat($('editCat').value), mid=parseFloat($('editMid').value), fin=parseFloat($('editFinal').value);
@@ -1315,23 +1533,24 @@ function saveEditedResult(btn){
   if(cat<0||cat>10) return showError('editError','CAT: 0 - 10');
   if(mid<0||mid>40) return showError('editError','Midterm: 0 - 40');
   if(fin<0||fin>40) return showError('editError','Final: 0 - 40');
+  
   setLoading(btn, true, 'Tubika...');
-  setTimeout(() => {
-    const results = DB.get(DB.keyResults);
-    const idx = results.findIndex(r => r.id === editingResultId);
-    if(idx === -1) { setLoading(btn, false); return closeEditResult(); }
-    results[idx] = { ...results[idx], subject, semester, cat, midterm:mid, final:fin, updatedAt:new Date().toISOString() };
-    DB.set(DB.keyResults, results);
+  const { doc, updateDoc } = window.firebaseFunctions;
+  try {
+    await updateDoc(doc(window.db, "results", editingResultId), {
+      subject, semester, cat, midterm: mid, final: fin, updatedAt: new Date().toISOString()
+    });
     setLoading(btn, false);
     showToast('Amanota yahinduwe!', 'success');
     closeEditResult();
+    await fetchAdminData();
     renderAdminStats(); renderAllResults();
-  }, 400);
+  } catch(e){ setLoading(btn, false); showError('editError','Byanze'); }
 }
 
 let currentStudentPassId = null;
 function openAdminStudentPass(id){
-  const student = DB.get(DB.keyStudents).find(s => s.id === id);
+  const student = adminStudents.find(s => s.id === id);
   if(!student) return;
   currentStudentPassId = id;
   $('passStudentName').textContent = `${student.firstName} ${student.lastName}`;
@@ -1341,22 +1560,10 @@ function openAdminStudentPass(id){
   $('changePassModal').classList.add('show');
 }
 function closeChangePass(){ $('changePassModal').classList.remove('show'); currentStudentPassId = null; }
+
 function saveStudentPassword(btn){
-  hideError('modalPassError');
-  const np=$('modalNewPass').value, cp=$('modalConfirmPass').value;
-  if(!np || np.length < 6) return showError('modalPassError','Ijambo ry\'ibanga: nibura inyuguti 6');
-  if(np !== cp) return showError('modalPassError','Amagambo y\'ibanga ntabwo ahura');
-  setLoading(btn, true, 'Tubika...');
-  setTimeout(() => {
-    const students = DB.get(DB.keyStudents);
-    const s = students.find(x => x.id === currentStudentPassId);
-    if(!s){ setLoading(btn, false); return closeChangePass(); }
-    s.password = np;
-    DB.set(DB.keyStudents, students);
-    setLoading(btn, false);
-    showToast('Ijambo ry\'ibanga ryahinduwe!', 'success');
-    closeChangePass();
-  }, 400);
+  showError('modalPassError', 'Guhindura password ya Firestore ntibirakorwa muri code hano. Koresha Firebase Console cyangwa Cloud Functions.');
+  setLoading(btn, false);
 }
 
 function initPdfForm(){
@@ -1372,39 +1579,43 @@ function onPdfSchoolChange(){
   prog.innerHTML = '<option value="">Hitamo Porogaramu</option>' + (EAUR_CONFIG.schools[school]||[]).map(p => `<option value="${p}">${p}</option>`).join('');
   prog.disabled = false;
 }
-function uploadPdf(btn){
+async function uploadPdf(btn){
   hideError('pdfError');
   const school=$('pdfSchool').value, programme=$('pdfProgramme').value;
   const year=$('pdfYear').value, trimester=$('pdfTrimester').value;
   const subject=$('pdfSubject').value.trim(), title=$('pdfTitle').value.trim();
   const file=$('pdfFile').files[0];
+  
   if(!school||!programme||!year||!trimester||!subject||!title||!file) return showError('pdfError','Uzuza ibice byose kandi uhitemo PDF');
   if(file.type !== 'application/pdf') return showError('pdfError','Dosiye igomba kuba PDF');
   if(file.size > 3*1024*1024) return showError('pdfError','PDF ntigomba kurenza 3MB');
+
   setLoading(btn, true, 'Tupakira...');
   const reader = new FileReader();
-  reader.onload = function(e){
-    const pdfs = DB.get(DB.keyPdfs);
-    pdfs.push({ id: uid('pdf'), title, subject, school, programme, year, trimester, fileName: file.name, size: file.size, data: e.target.result, uploadedAt: new Date().toISOString() });
+  reader.onload = async function(e){
+    const { collection, addDoc } = window.firebaseFunctions;
     try {
-      DB.set(DB.keyPdfs, pdfs);
+      await addDoc(collection(window.db, "pdfs"), {
+        title, subject, school, programme, year, trimester, fileName: file.name, size: file.size, data: e.target.result, uploadedAt: new Date().toISOString()
+      });
       $('pdfSubject').value=''; $('pdfTitle').value=''; $('pdfFile').value='';
       setLoading(btn, false);
       showToast('PDF yongeweho neza!', 'success');
+      await fetchAdminData();
       renderAdminStats(); renderAdminPdfs();
     } catch(err){
       setLoading(btn, false);
-      showError('pdfError','LocalStorage yuzuye! Siba PDF zimwe.');
+      showError('pdfError','Byanze kubika muri Firestore.');
     }
   };
   reader.onerror = () => { setLoading(btn, false); showError('pdfError','Habaye ikibazo'); };
   reader.readAsDataURL(file);
 }
+
 function renderAdminPdfs(){
-  const pdfs = DB.get(DB.keyPdfs);
   const fS=$('pdfFilterSchool').value, fP=$('pdfFilterProgramme').value;
   const fY=$('pdfFilterYear').value, fT=$('pdfFilterTrimester').value;
-  const filtered = pdfs.filter(p => (!fS||p.school===fS) && (!fP||p.programme===fP) && (!fY||p.year===fY) && (!fT||p.trimester===fT));
+  const filtered = adminPdfs.filter(p => (!fS||p.school===fS) && (!fP||p.programme===fP) && (!fY||p.year===fY) && (!fT||p.trimester===fT));
   const tbody = $('pdfsTableBody');
   if(!filtered.length){
     tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state"><div class="icon">📄</div><p>Nta PDF ihuye n'ibyo washakishije</p></div></td></tr>`;
@@ -1423,14 +1634,18 @@ function renderAdminPdfs(){
     </tr>
   `).join('');
 }
-function deletePdf(id){
+async function deletePdf(id){
   if(!confirm('Siba iyi PDF?')) return;
-  DB.set(DB.keyPdfs, DB.get(DB.keyPdfs).filter(p => p.id !== id));
-  showToast('PDF yasibwe', 'warning');
-  renderAdminStats(); renderAdminPdfs();
+  const { doc, deleteDoc } = window.firebaseFunctions;
+  try {
+    await deleteDoc(doc(window.db, "pdfs", id));
+    showToast('PDF yasibwe', 'warning');
+    await fetchAdminData();
+    renderAdminStats(); renderAdminPdfs();
+  } catch(e) { showToast("Byanze gusiba", "error"); }
 }
 function openPdf(id){
-  const pdf = DB.get(DB.keyPdfs).find(p => p.id === id);
+  const pdf = adminPdfs.find(p => p.id === id) || studentPdfs.find(p => p.id === id);
   if(!pdf) return showToast('PDF ntiyabonetse', 'error');
   try{
     const base64 = pdf.data.split(',')[1] || pdf.data;
@@ -1447,8 +1662,7 @@ function openPdf(id){
 function backupData(){
   const data = {
     version: 1, exportedAt: new Date().toISOString(),
-    students: DB.get(DB.keyStudents), results: DB.get(DB.keyResults),
-    admins: DB.get(DB.keyAdmins), pdfs: DB.get(DB.keyPdfs)
+    students: adminStudents, results: adminResults, pdfs: adminPdfs
   };
   const blob = new Blob([JSON.stringify(data, null, 2)], { type:'application/json' });
   const url = URL.createObjectURL(blob);
@@ -1459,54 +1673,8 @@ function backupData(){
   setTimeout(() => URL.revokeObjectURL(url), 1000);
   showToast('Backup yabitswe!', 'success');
 }
-function restoreData(input){
-  const file = input.files[0];
-  if(!file) return;
-  if(!confirm('Ibi bizasimbuza data yose iriho. Ukomeza?')) { input.value = ''; return; }
-  const reader = new FileReader();
-  reader.onload = function(e){
-    try{
-      const data = JSON.parse(e.target.result);
-      if(!data.students && !data.results && !data.admins && !data.pdfs) return showToast('Dosiye ntiyemewe', 'error');
-      if(data.students) DB.set(DB.keyStudents, data.students);
-      if(data.results)  DB.set(DB.keyResults, data.results);
-      if(data.admins)   DB.set(DB.keyAdmins, data.admins);
-      if(data.pdfs)     DB.set(DB.keyPdfs, data.pdfs);
-      showToast('Data yasubijwe neza! Paji izasubiramo...', 'success');
-      setTimeout(() => location.reload(), 1500);
-    }catch(err){ showToast('Dosiye ntiyemewe: ' + err.message, 'error'); }
-    input.value = '';
-  };
-  reader.readAsText(file);
-}
-function changeAdminPassword(btn){
-  hideError('passError');
-  const oldP=$('oldPass').value, newP=$('newPass').value, confP=$('confirmPass').value;
-  if(!oldP || !newP || !confP) return showError('passError','Uzuza ibice byose');
-  if(newP.length < 6) return showError('passError','Ijambo rishya: nibura inyuguti 6');
-  if(newP !== confP) return showError('passError','Amagambo mashya ntabwo ahura');
-  const session = getSession();
-  const admins = DB.get(DB.keyAdmins);
-  const admin = admins.find(a => a.id === session.id);
-  if(!admin) return showError('passError','Admin ntiyabonetse');
-  if(admin.password !== oldP) return showError('passError','Ijambo rya kera si ryo');
-  setLoading(btn, true, 'Tubika...');
-  setTimeout(() => {
-    admin.password = newP;
-    DB.set(DB.keyAdmins, admins);
-    $('oldPass').value=''; $('newPass').value=''; $('confirmPass').value='';
-    setLoading(btn, false);
-    showToast('Ijambo ry\'ibanga ryahinduwe!', 'success');
-  }, 400);
-}
-function clearAllData(){
-  if(!confirm('⚠️ Ibi bizasiba ABANYESHURI BOSE, AMANOTA YOSE na PDF ZOSE. Ukomeza?')) return;
-  if(!confirm('Urabyemeza rwose? Ntibishobora gusubizwa!')) return;
-  localStorage.removeItem(DB.keyStudents); localStorage.removeItem(DB.keyResults);
-  localStorage.removeItem(DB.keyPdfs); localStorage.removeItem(DB.keySession);
-  showToast('Data yose yasibwe. Paji izasubiramo...', 'warning');
-  setTimeout(() => location.reload(), 1500);
-}
+function changeAdminPassword(btn){ showError('passError', 'Guhindura password ya admin bikorwa gusa muri Firebase Authentication Console.'); setLoading(btn, false); }
+function clearAllData(){ showError('passError', 'Gusiba data byose bikorwa muri Firebase Console.'); }
 
 $('editResultModal').addEventListener('click', e => { if(e.target.id === 'editResultModal') closeEditResult(); });
 $('changePassModal').addEventListener('click', e => { if(e.target.id === 'changePassModal') closeChangePass(); });
