@@ -1,0 +1,1617 @@
+<!DOCTYPE html>
+<html lang="rw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0b5ed7">
+<title>ExamHub Rwanda — EAUR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --primary:#0b5ed7; --primary-dark:#084298; --primary-light:#e7f1ff;
+    --success:#198754; --success-light:#d1e7dd;
+    --danger:#dc3545; --danger-light:#f8d7da;
+    --warning:#ffc107; --warning-light:#fff3cd;
+    --purple:#6f42c1; --purple-light:#e9e1f7;
+    --pink:#d63384; --pink-light:#fce4ec;
+    --cyan:#0dcaf0; --cyan-light:#cff4fc;
+    --bg:#f0f4f9; --card:#ffffff; --text:#1a1f36; --muted:#6b7280;
+    --border:#e5e7eb; --radius:14px; --radius-sm:10px;
+    --shadow:0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+    --shadow-lg:0 10px 30px rgba(0,0,0,.1);
+    --sidebar-w:260px;
+    --safe-bottom:env(safe-area-inset-bottom, 0px);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%}
+  body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  @keyframes fadeInUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes fadeInDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes fadeInLeft{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
+  @keyframes scaleIn{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
+  @keyframes popIn{0%{opacity:0;transform:scale(.6)}70%{transform:scale(1.05)}100%{opacity:1;transform:scale(1)}}
+  @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+  @keyframes ripple{to{transform:scale(4);opacity:0}}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+  @keyframes slideInRight{from{opacity:0;transform:translateX(100px)}to{opacity:1;transform:translateX(0)}}
+  @keyframes slideOutRight{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(100px)}}
+  @keyframes glow{0%,100%{box-shadow:0 0 10px rgba(11,94,215,.3)}50%{box-shadow:0 0 25px rgba(11,94,215,.6)}}
+  @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+
+  /* ============================================================
+     BUTTONS — nice colors + icons + hover
+     ============================================================ */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:12px 22px;border:none;border-radius:12px;cursor:pointer;
+    font-size:.9rem;font-weight:700;font-family:inherit;
+    transition:all .28s cubic-bezier(.22,1,.36,1);
+    text-decoration:none;white-space:nowrap;position:relative;overflow:hidden;
+    transform:translateZ(0);min-height:44px;
+    letter-spacing:.2px;
+  }
+  .btn:active{transform:scale(.96)}
+  .btn-primary{
+    background:linear-gradient(135deg,#3b82f6,#0b5ed7 60%,#084298);
+    color:#fff;box-shadow:0 4px 14px rgba(11,94,215,.35);
+  }
+  .btn-primary:hover{box-shadow:0 8px 25px rgba(11,94,215,.5);transform:translateY(-2px)}
+  .btn-success{
+    background:linear-gradient(135deg,#34d399,#198754 60%,#0f5132);
+    color:#fff;box-shadow:0 4px 14px rgba(25,135,84,.35);
+  }
+  .btn-success:hover{box-shadow:0 8px 25px rgba(25,135,84,.5);transform:translateY(-2px)}
+  .btn-danger{
+    background:linear-gradient(135deg,#f87171,#dc3545 60%,#b02a37);
+    color:#fff;box-shadow:0 4px 14px rgba(220,53,69,.35);
+  }
+  .btn-danger:hover{box-shadow:0 8px 25px rgba(220,53,69,.5);transform:translateY(-2px)}
+  .btn-warning{
+    background:linear-gradient(135deg,#fcd34d,#ffc107 60%,#cc9a06);
+    color:#664d03;box-shadow:0 4px 14px rgba(255,193,7,.4);
+  }
+  .btn-warning:hover{box-shadow:0 8px 25px rgba(255,193,7,.55);transform:translateY(-2px)}
+  .btn-purple{
+    background:linear-gradient(135deg,#a78bfa,#6f42c1 60%,#59359a);
+    color:#fff;box-shadow:0 4px 14px rgba(111,66,193,.35);
+  }
+  .btn-purple:hover{box-shadow:0 8px 25px rgba(111,66,193,.5);transform:translateY(-2px)}
+  .btn-ghost{background:transparent;color:var(--muted);border:1.5px solid var(--border)}
+  .btn-ghost:hover{background:#f9fafb;transform:translateY(-1px);border-color:#cbd5e1}
+  .btn-sm{padding:8px 14px;font-size:.8rem;border-radius:9px;min-height:36px;gap:5px}
+  .btn-lg{padding:14px 28px;font-size:1rem;border-radius:14px;min-height:52px}
+  .btn-block{width:100%}
+  .btn-icon{
+    width:44px;height:44px;padding:0;border-radius:50%;
+    display:inline-flex;align-items:center;justify-content:center;
+  }
+  .btn-icon.btn-sm{width:36px;height:36px}
+
+  .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.6);transform:scale(0);animation:ripple .6s ease-out;pointer-events:none}
+
+  /* ============================================================
+     AUTH PAGE
+     ============================================================ */
+  .auth-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;position:relative;overflow:hidden;background:linear-gradient(135deg,#0b5ed7 0%,#6f42c1 50%,#0b5ed7 100%);background-size:300% 300%;animation:gradientShift 12s ease infinite}
+  .auth-page::before,.auth-page::after{content:'';position:absolute;border-radius:50%;background:rgba(255,255,255,.08);pointer-events:none}
+  .auth-page::before{width:400px;height:400px;top:-150px;left:-150px;animation:float 8s ease-in-out infinite}
+  .auth-page::after{width:300px;height:300px;bottom:-100px;right:-100px;animation:float 10s ease-in-out infinite reverse}
+  .auth-card{width:100%;max-width:440px;background:#fff;border-radius:22px;padding:34px 30px;box-shadow:0 25px 60px rgba(0,0,0,.25);position:relative;z-index:2;animation:fadeInUp .6s cubic-bezier(.22,1,.36,1) both}
+  .auth-card.wide{max-width:700px}
+  .auth-logo{text-align:center;margin-bottom:26px}
+  .auth-logo .logo-icon{font-size:3rem;margin-bottom:10px;display:inline-block;animation:popIn .6s cubic-bezier(.34,1.56,.64,1) .2s both}
+  .auth-logo h1{font-size:1.5rem;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--purple));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:fadeInUp .5s ease .3s both}
+  .auth-logo p{font-size:.85rem;color:var(--muted);animation:fadeInUp .5s ease .4s both}
+
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .form-group{display:flex;flex-direction:column;gap:6px;position:relative}
+  .form-group.full{grid-column:1 / -1}
+  label{font-size:.82rem;font-weight:700;color:#374151;transition:color .2s;display:block}
+  .form-group:focus-within label{color:var(--primary)}
+  input,select,textarea{padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:.92rem;font-family:inherit;background:#fff;transition:all .25s cubic-bezier(.22,1,.36,1);width:100%;color:var(--text)}
+  input:hover,select:hover{border-color:#cbd5e1}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 4px rgba(11,94,215,.12);transform:translateY(-1px)}
+  select:disabled{background:#f3f4f6;cursor:not-allowed;color:var(--muted)}
+  input[type=file]{padding:9px;cursor:pointer}
+  input[type=file]::file-selector-button{padding:7px 14px;border:none;border-radius:8px;background:var(--primary-light);color:var(--primary);font-weight:600;cursor:pointer;margin-right:10px;transition:.2s;font-family:inherit}
+  input[type=file]::file-selector-button:hover{background:var(--primary);color:#fff}
+
+  .error{color:var(--danger);font-size:.85rem;margin-top:8px;display:none;padding:11px 14px;background:var(--danger-light);border-radius:10px;border-left:3px solid var(--danger);font-weight:500}
+  .error.show{display:block;animation:shake .4s ease, fadeIn .3s ease}
+
+  /* ============================================================
+     APP LAYOUT
+     ============================================================ */
+  .app-layout{display:flex;min-height:100vh;animation:fadeIn .4s ease}
+  .sidebar{width:var(--sidebar-w);background:#fff;border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;bottom:0;left:0;z-index:100;transition:transform .35s cubic-bezier(.22,1,.36,1);box-shadow:var(--shadow)}
+  .sidebar-header{padding:20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;animation:fadeInDown .5s ease both}
+  .sidebar-header .logo-icon{font-size:1.6rem;animation:popIn .5s ease .2s both}
+  .sidebar-header h2{font-size:1rem;font-weight:800;color:var(--primary-dark)}
+  .sidebar-header small{font-size:.72rem;color:var(--muted);font-weight:500}
+  .sidebar-user{padding:18px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;animation:fadeInLeft .5s ease .1s both}
+  .avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--purple));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:1.1rem;flex-shrink:0;transition:transform .3s;box-shadow:0 4px 12px rgba(11,94,215,.3)}
+  .avatar:hover{transform:scale(1.08) rotate(-5deg)}
+  .sidebar-user .info{overflow:hidden}
+  .sidebar-user .name{font-weight:700;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .sidebar-user .role{font-size:.75rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+  .sidebar-nav{flex:1;padding:12px 10px;overflow-y:auto}
+  .nav-item{
+    display:flex;align-items:center;gap:12px;padding:13px 16px;
+    border-radius:12px;cursor:pointer;color:var(--muted);
+    font-weight:600;font-size:.9rem;
+    transition:all .28s cubic-bezier(.22,1,.36,1);
+    margin-bottom:4px;border:none;background:none;width:100%;text-align:left;
+    font-family:inherit;position:relative;overflow:hidden;
+  }
+  .nav-item::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:4px;height:0;background:var(--primary);border-radius:0 4px 4px 0;transition:height .3s ease}
+  .nav-item:hover{background:#f3f4f6;color:var(--text);transform:translateX(3px)}
+  .nav-item:hover::before{height:60%}
+  .nav-item.active{background:linear-gradient(135deg,var(--primary-light),#f0f7ff);color:var(--primary);font-weight:700}
+  .nav-item.active::before{height:60%}
+  .nav-item .icon{
+    font-size:1.2rem;width:28px;height:28px;text-align:center;flex-shrink:0;
+    display:inline-flex;align-items:center;justify-content:center;
+    transition:transform .25s ease;border-radius:8px;
+  }
+  .nav-item:hover .icon{transform:scale(1.15)}
+  .nav-item.active .icon{background:linear-gradient(135deg,var(--primary),var(--purple));color:#fff;box-shadow:0 3px 10px rgba(11,94,215,.3)}
+  .nav-item .badge-count{margin-left:auto;background:var(--primary);color:#fff;font-size:.7rem;padding:3px 9px;border-radius:20px;font-weight:700;animation:popIn .4s ease}
+  .nav-item.enrolled .icon{background:linear-gradient(135deg,#34d399,#059669);color:#fff;box-shadow:0 3px 10px rgba(25,135,84,.3)}
+  .nav-item.enrolled.active .icon{background:linear-gradient(135deg,#34d399,#059669)}
+  .sidebar-footer{padding:12px 10px;border-top:1px solid var(--border)}
+
+  .main-content{flex:1;margin-left:var(--sidebar-w);padding:24px;min-height:100vh;max-width:100%}
+  .page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;flex-wrap:wrap;gap:12px;animation:fadeInDown .5s ease both}
+  .page-header h1{font-size:1.5rem;font-weight:800;color:var(--text)}
+  .page-header p{font-size:.88rem;color:var(--muted)}
+
+  .mobile-topbar{display:none;background:#fff;padding:12px 16px;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50;align-items:center;justify-content:space-between;box-shadow:var(--shadow)}
+  .mobile-topbar .hamburger{background:none;border:none;font-size:1.5rem;cursor:pointer;padding:6px 10px;color:var(--text);border-radius:10px;transition:background .2s, transform .2s}
+  .mobile-topbar .hamburger:active{background:#f3f4f6;transform:scale(.9)}
+  .mobile-topbar h2{font-size:1rem;font-weight:800;color:var(--primary-dark)}
+
+  /* ============================================================
+     BOTTOM NAV (mobile) — nice colors
+     ============================================================ */
+  .bottom-nav{
+    display:none;position:fixed;bottom:0;left:0;right:0;
+    background:#fff;border-top:1px solid var(--border);
+    padding:8px 4px calc(8px + var(--safe-bottom));
+    z-index:90;box-shadow:0 -4px 20px rgba(0,0,0,.08);
+    justify-content:space-around;
+    animation:slideUp .4s cubic-bezier(.22,1,.36,1) both;
+  }
+  .bottom-nav-item{
+    flex:1;display:flex;flex-direction:column;align-items:center;
+    gap:3px;background:none;border:none;cursor:pointer;
+    padding:8px 4px;color:var(--muted);font-family:inherit;
+    font-size:.68rem;font-weight:600;transition:all .25s;
+    border-radius:12px;position:relative;min-height:52px;
+  }
+  .bottom-nav-item .icon{
+    font-size:1.35rem;line-height:1;transition:all .3s;
+    display:inline-flex;align-items:center;justify-content:center;
+    width:36px;height:36px;border-radius:50%;
+  }
+  .bottom-nav-item:active{transform:scale(.92)}
+  .bottom-nav-item.active{color:var(--primary);font-weight:700}
+  .bottom-nav-item.active .icon{
+    background:linear-gradient(135deg,var(--primary),var(--purple));
+    color:#fff;transform:scale(1.1) translateY(-3px);
+    box-shadow:0 5px 15px rgba(11,94,215,.4);
+  }
+  .bottom-nav-item.enrolled.active .icon{
+    background:linear-gradient(135deg,#34d399,#059669);
+    box-shadow:0 5px 15px rgba(25,135,84,.4);
+  }
+  .bottom-nav-item.active::before{content:'';position:absolute;top:0;width:24px;height:3px;background:linear-gradient(90deg,var(--primary),var(--purple));border-radius:0 0 4px 4px;animation:scaleIn .3s ease}
+
+  .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99;animation:fadeIn .25s;backdrop-filter:blur(2px)}
+  .overlay.show{display:block}
+
+  /* ============================================================
+     CARDS
+     ============================================================ */
+  .card{background:var(--card);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);margin-bottom:20px;animation:fadeInUp .45s cubic-bezier(.22,1,.36,1) both;transition:box-shadow .25s ease, transform .25s ease}
+  .card:hover{box-shadow:var(--shadow-lg)}
+  .card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+  .card h2{font-size:1.1rem;font-weight:700;color:var(--text)}
+  .card h3{font-size:.95rem;font-weight:700;color:var(--primary-dark);margin:16px 0 10px}
+  .card h2 .emoji, .card h3 .emoji{margin-right:6px;display:inline-block}
+
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:20px}
+  .stat{background:#fff;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden;transition:all .3s cubic-bezier(.22,1,.36,1);animation:fadeInUp .5s cubic-bezier(.22,1,.36,1) both}
+  .stat:nth-child(1){animation-delay:.05s}
+  .stat:nth-child(2){animation-delay:.1s}
+  .stat:nth-child(3){animation-delay:.15s}
+  .stat:nth-child(4){animation-delay:.2s}
+  .stat:nth-child(5){animation-delay:.25s}
+  .stat::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--purple));transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.22,1,.36,1)}
+  .stat:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+  .stat:hover::after{transform:scaleX(1)}
+  .stat .stat-icon{position:absolute;right:14px;top:14px;font-size:1.6rem;opacity:.15;transition:all .3s}
+  .stat:hover .stat-icon{opacity:.3;transform:scale(1.1) rotate(5deg)}
+  .stat .num{font-size:2rem;font-weight:800;line-height:1.1}
+  .stat .lbl{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;font-weight:600;margin-top:4px}
+  .stat.blue .num{color:var(--primary)}
+  .stat.blue::after{background:linear-gradient(90deg,var(--primary),#5b9fff)}
+  .stat.green .num{color:var(--success)}
+  .stat.green::after{background:linear-gradient(90deg,var(--success),#20c997)}
+  .stat.yellow .num{color:#b8860b}
+  .stat.yellow::after{background:linear-gradient(90deg,var(--warning),#ffda6a)}
+  .stat.purple .num{color:var(--purple)}
+  .stat.purple::after{background:linear-gradient(90deg,var(--purple),#a98ff0)}
+  .stat.red .num{color:var(--danger)}
+  .stat.red::after{background:linear-gradient(90deg,var(--danger),#f55b6a)}
+
+  /* ============================================================
+     CAT CARDS (Enrolled CAT)
+     ============================================================ */
+  .cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+  .cat-card{
+    background:#fff;border:1.5px solid var(--border);border-radius:16px;
+    padding:20px;position:relative;overflow:hidden;
+    transition:all .3s cubic-bezier(.22,1,.36,1);
+    animation:fadeInUp .4s cubic-bezier(.22,1,.36,1) both;
+    display:flex;flex-direction:column;gap:12px;
+  }
+  .cat-card::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:5px;
+    background:linear-gradient(90deg,#34d399,#0dcaf0);
+    transform:scaleX(0);transform-origin:left;
+    transition:transform .35s cubic-bezier(.22,1,.36,1);
+  }
+  .cat-card:hover{border-color:var(--success);box-shadow:0 12px 35px rgba(25,135,84,.15);transform:translateY(-4px)}
+  .cat-card:hover::before{transform:scaleX(1)}
+  .cat-card .cat-header{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+  .cat-card .cat-icon{
+    font-size:1.8rem;width:52px;height:52px;border-radius:14px;
+    display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,#d1fae5,#a7f3d0);
+    transition:transform .3s ease;
+  }
+  .cat-card:hover .cat-icon{transform:scale(1.1) rotate(-5deg)}
+  .cat-card .cat-status{
+    padding:4px 10px;border-radius:20px;font-size:.72rem;font-weight:700;
+  }
+  .cat-status.enrolled{background:#d1fae5;color:#065f46}
+  .cat-status.done{background:#cfe2ff;color:#084298}
+  .cat-card .cat-subject{font-size:1.05rem;font-weight:800;color:var(--text);line-height:1.3}
+  .cat-card .cat-meta{font-size:.8rem;color:var(--muted);display:flex;flex-direction:column;gap:3px}
+  .cat-card .cat-meta strong{color:#374151;font-weight:600}
+  .cat-card .cat-score{
+    display:flex;align-items:baseline;gap:4px;
+    padding:10px 14px;background:linear-gradient(135deg,#f0fdf4,#dcfce7);
+    border-radius:10px;margin-top:auto;
+  }
+  .cat-card .cat-score .score-num{font-size:1.6rem;font-weight:800;color:var(--success)}
+  .cat-card .cat-score .score-total{font-size:.9rem;color:var(--muted);font-weight:600}
+  .cat-card .cat-score .score-label{margin-left:auto;font-size:.75rem;color:var(--muted);text-transform:uppercase;font-weight:700;letter-spacing:.5px}
+  .cat-card .cat-actions{display:flex;gap:8px;padding-top:6px}
+
+  /* ============================================================
+     TABLES
+     ============================================================ */
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--radius-sm);border:1px solid var(--border)}
+  table{width:100%;border-collapse:collapse;font-size:.87rem;min-width:500px}
+  th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--border)}
+  th{background:#f9fafb;font-weight:700;color:#374151;font-size:.78rem;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap}
+  tr:last-child td{border-bottom:none}
+  tbody tr{transition:background .15s ease}
+  tbody tr:hover td{background:#f9fafb}
+  .total-cell{font-weight:800;color:var(--success);font-size:.95rem}
+
+  .badge{display:inline-block;padding:4px 11px;border-radius:20px;font-size:.75rem;font-weight:700;animation:popIn .3s ease}
+  .badge-pending{background:var(--warning-light);color:#856404}
+  .badge-approved{background:var(--success-light);color:#0f5132}
+  .badge-school{background:var(--primary-light);color:var(--primary-dark)}
+
+  .grade{display:inline-block;padding:3px 10px;border-radius:6px;font-weight:800;font-size:.8rem;min-width:32px;text-align:center}
+  .grade-a{background:#d1e7dd;color:#0f5132}
+  .grade-b{background:#cfe2ff;color:#084298}
+  .grade-c{background:#fff3cd;color:#856404}
+  .grade-d{background:#ffe5d0;color:#984c0c}
+  .grade-f{background:#f8d7da;color:#842029}
+
+  .filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:16px}
+  .search-box{position:relative;margin-bottom:16px}
+  .search-box input{padding-left:44px}
+  .search-box::before{content:'🔍';position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:1rem;opacity:.5}
+
+  .pdf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+  .pdf-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);padding:18px;display:flex;flex-direction:column;gap:10px;transition:all .3s cubic-bezier(.22,1,.36,1);position:relative;overflow:hidden;animation:fadeInUp .4s cubic-bezier(.22,1,.36,1) both}
+  .pdf-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--primary),var(--purple));transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.22,1,.36,1)}
+  .pdf-card:hover{border-color:var(--primary);box-shadow:var(--shadow-lg);transform:translateY(-4px)}
+  .pdf-card:hover::before{transform:scaleX(1)}
+  .pdf-card .pdf-icon{font-size:2rem;transition:transform .3s ease}
+  .pdf-card:hover .pdf-icon{transform:scale(1.15) rotate(-5deg)}
+  .pdf-card .pdf-title{font-weight:700;color:var(--text);font-size:.95rem;line-height:1.3}
+  .pdf-card .pdf-meta{font-size:.8rem;color:var(--muted);line-height:1.6}
+  .pdf-card .pdf-meta strong{color:#374151;font-weight:600}
+  .pdf-card .pdf-actions{display:flex;gap:8px;margin-top:auto;padding-top:6px}
+
+  .empty-state{text-align:center;padding:40px 20px;color:var(--muted);animation:fadeIn .5s ease both}
+  .empty-state .icon{font-size:3rem;margin-bottom:12px;opacity:.5;display:inline-block;animation:float 3s ease-in-out infinite}
+  .empty-state p{font-size:.9rem}
+
+  .note-box{background:var(--warning-light);border-left:4px solid var(--warning);padding:12px 16px;border-radius:8px;margin-bottom:16px;font-size:.85rem;color:#664d03;animation:fadeInLeft .4s ease both}
+
+  .page-section{display:none}
+  .page-section.active{display:block;animation:fadeInUp .4s cubic-bezier(.22,1,.36,1)}
+  .hidden{display:none !important}
+
+  .toast-container{position:fixed;top:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:10px;pointer-events:none}
+  .toast{background:#fff;padding:14px 20px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.15);display:flex;align-items:center;gap:10px;font-size:.9rem;font-weight:600;animation:slideInRight .4s cubic-bezier(.22,1,.36,1) both;min-width:260px;max-width:400px;border-left:4px solid var(--primary);pointer-events:auto}
+  .toast.success{border-left-color:var(--success)}
+  .toast.error{border-left-color:var(--danger)}
+  .toast.warning{border-left-color:var(--warning)}
+  .toast.hide{animation:slideOutRight .3s ease forwards}
+
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(3px)}
+  .modal-overlay.show{display:flex;animation:fadeIn .25s ease}
+  .modal{background:#fff;border-radius:16px;padding:26px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;animation:scaleIn .3s cubic-bezier(.22,1,.36,1);box-shadow:0 25px 60px rgba(0,0,0,.25)}
+  .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+  .modal-header h2{font-size:1.2rem;font-weight:800;color:var(--text)}
+  .modal-close{background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--muted);padding:4px 8px;border-radius:8px;transition:.2s}
+  .modal-close:hover{background:#f3f4f6;color:var(--text)}
+
+  .auth-links{display:flex;flex-direction:column;gap:10px;margin-top:16px;text-align:center}
+  .auth-links a{font-size:.85rem;color:var(--primary);text-decoration:none;font-weight:600;transition:.2s}
+  .auth-links a:hover{color:var(--primary-dark);text-decoration:underline}
+  .auth-links .divider{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:.75rem}
+  .auth-links .divider::before,.auth-links .divider::after{content:'';flex:1;height:1px;background:var(--border)}
+
+  @media(max-width:900px){
+    .sidebar{transform:translateX(-100%)}
+    .sidebar.open{transform:translateX(0)}
+    .main-content{margin-left:0;padding:16px;padding-bottom:100px}
+    .mobile-topbar{display:flex}
+    .bottom-nav{display:flex}
+    .page-header h1{font-size:1.25rem}
+    .form-grid{grid-template-columns:1fr}
+    .stats{grid-template-columns:repeat(2,1fr);gap:12px}
+    .stat{padding:16px}
+    .stat .num{font-size:1.6rem}
+    .card{padding:16px;border-radius:12px}
+    .pdf-grid{grid-template-columns:1fr}
+    .cat-grid{grid-template-columns:1fr}
+    table{font-size:.8rem;min-width:450px}
+    th,td{padding:10px}
+  }
+  @media(max-width:480px){
+    .auth-card{padding:26px 20px}
+    .auth-logo .logo-icon{font-size:2.5rem}
+    .auth-logo h1{font-size:1.3rem}
+    .stats{grid-template-columns:1fr 1fr}
+    .stat .num{font-size:1.5rem}
+    .bottom-nav-item{font-size:.62rem}
+    .bottom-nav-item .icon{font-size:1.2rem;width:32px;height:32px}
+    .toast-container{top:10px;right:10px;left:10px}
+    .toast{min-width:auto;font-size:.85rem}
+  }
+  @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}}
+
+  ::-webkit-scrollbar{width:8px;height:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  ::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:4px}
+  ::-webkit-scrollbar-thumb:hover{background:#94a3b8}
+
+  .spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite}
+</style>
+</head>
+<body>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- ============ LOGIN PAGE ============ -->
+<div id="loginPage" class="auth-page">
+  <div class="auth-card">
+    <div class="auth-logo">
+      <div class="logo-icon">🎓</div>
+      <h1>ExamHub Rwanda</h1>
+      <p>East African University Rwanda</p>
+    </div>
+
+    <h2 style="text-align:center;font-size:1.1rem;font-weight:700;margin-bottom:20px;color:var(--text)">Injira mu konti yawe</h2>
+
+    <div class="form-grid">
+      <div class="form-group full"><label>Email</label><input type="email" id="loginEmail" placeholder="email@example.com" autocomplete="email"></div>
+      <div class="form-group full"><label>Ijambo ry'ibanga</label><input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password"></div>
+    </div>
+    <p id="loginError" class="error"></p>
+    <button class="btn btn-primary btn-block btn-lg" style="margin-top:16px" onclick="handleLogin(this)">🚀 Injira</button>
+
+    <div class="auth-links">
+      <div class="divider">cyangwa</div>
+      <a href="#" onclick="showRegisterPage(); return false;">📝 Nta konti? Iyandikishe nka umunyeshuri</a>
+    </div>
+
+    <p style="margin-top:20px;font-size:.72rem;color:var(--muted);text-align:center;padding-top:16px;border-top:1px solid var(--border)">
+      Admin demo: <strong>admin@eaur.rw</strong> / <strong>admin123</strong>
+    </p>
+  </div>
+</div>
+
+<!-- ============ REGISTER PAGE ============ -->
+<div id="registerPage" class="auth-page hidden">
+  <div class="auth-card wide">
+    <div class="auth-logo">
+      <div class="logo-icon">📝</div>
+      <h1>Kwiyandikisha</h1>
+      <p>Umunyeshuri mushya — EAUR</p>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-group"><label>Izina ry'ibanze *</label><input type="text" id="regFirstName" placeholder="Jean"></div>
+      <div class="form-group"><label>Izina ry'umuryango *</label><input type="text" id="regLastName" placeholder="Mugisha"></div>
+      <div class="form-group full"><label>Email *</label><input type="email" id="regEmail" placeholder="email@example.com"></div>
+      <div class="form-group full"><label>Ijambo ry'ibanga *</label><input type="password" id="regPassword" placeholder="Nibura inyuguti 6"></div>
+      <div class="form-group"><label>Campus *</label><select id="regCampus"></select></div>
+      <div class="form-group"><label>Ishuri *</label><select id="regSchool" onchange="onSchoolChange()"></select></div>
+      <div class="form-group full"><label>Porogaramu *</label><select id="regProgramme" disabled></select></div>
+      <div class="form-group"><label>Umwaka *</label><select id="regYear"></select></div>
+      <div class="form-group"><label>Trimester *</label><select id="regTrimester"></select></div>
+    </div>
+    <p id="regError" class="error"></p>
+    <button class="btn btn-success btn-block btn-lg" style="margin-top:16px" onclick="handleRegister(this)">✅ Iyandikishe</button>
+
+    <div class="auth-links">
+      <div class="divider">cyangwa</div>
+      <a href="#" onclick="showLoginPage(); return false;">← Usanzwe ufite konti? Injira</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ STUDENT APP ============ -->
+<div id="studentApp" class="hidden">
+  <div class="app-layout">
+    <aside class="sidebar" id="studentSidebar">
+      <div class="sidebar-header"><div class="logo-icon">🎓</div><div><h2>ExamHub</h2><small>EAUR Student</small></div></div>
+      <div class="sidebar-user">
+        <div class="avatar" id="studentAvatar">?</div>
+        <div class="info"><div class="name" id="sidebarName">—</div><div class="role" id="sidebarRole">Umunyeshuri</div></div>
+      </div>
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-page="home" onclick="studentNav('home')"><span class="icon">🏠</span><span>Dashboard</span></button>
+        <button class="nav-item enrolled" data-page="cat" onclick="studentNav('cat')"><span class="icon">📝</span><span>Enrolled CAT</span><span class="badge-count" id="catCount">0</span></button>
+        <button class="nav-item" data-page="pdfs" onclick="studentNav('pdfs')"><span class="icon">📄</span><span>Exam PDFs</span><span class="badge-count" id="pdfsCount">0</span></button>
+        <button class="nav-item" data-page="profile" onclick="studentNav('profile')"><span class="icon">👤</span><span>Profile</span></button>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="nav-item" onclick="logout()"><span class="icon">🚪</span><span>Sohoka</span></button>
+      </div>
+    </aside>
+    <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+    <main class="main-content">
+      <div class="mobile-topbar">
+        <button class="hamburger" onclick="openSidebar()">☰</button>
+        <h2>ExamHub EAUR</h2>
+        <div class="avatar" id="mobileAvatar" style="width:34px;height:34px;font-size:.9rem">?</div>
+      </div>
+
+      <section class="page-section active" id="page-home">
+        <div class="page-header"><div><h1 id="welcomeTitle">Muraho!</h1><p id="welcomeMeta"></p></div></div>
+        <div class="stats" id="studentStats"></div>
+        <div class="card">
+          <div class="card-header"><h2><span class="emoji">📈</span>Incamake y'amanota</h2></div>
+          <div id="homeResultsSummary"></div>
+        </div>
+      </section>
+
+      <!-- ENROLLED CAT PAGE -->
+      <section class="page-section" id="page-cat">
+        <div class="page-header">
+          <div>
+            <h1>Enrolled CAT</h1>
+            <p>CAT zawe zose ku isomo</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h2><span class="emoji">🔍</span>Shakisha no Kuyungurura</h2></div>
+          <div class="search-box"><input type="text" id="catSearch" placeholder="Shakisha ku isomo..." oninput="renderStudentCATs()"></div>
+          <div class="filters">
+            <select id="catFilterSemester" onchange="renderStudentCATs()">
+              <option value="">Semester yose</option>
+              <option value="Trimester 1">Trimester 1</option>
+              <option value="Trimester 2">Trimester 2</option>
+              <option value="Trimester 3">Trimester 3</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="studentCATs"></div>
+      </section>
+
+      <section class="page-section" id="page-pdfs">
+        <div class="page-header"><div><h1>Exam PDFs</h1><p>Past papers zihuye na porogaramu yawe</p></div></div>
+        <div id="studentPdfs"></div>
+      </section>
+
+      <section class="page-section" id="page-profile">
+        <div class="page-header"><div><h1>Profile Yanjye</h1><p>Amakuru yawe yose</p></div></div>
+        <div class="card" id="profileCard"></div>
+      </section>
+    </main>
+    <nav class="bottom-nav">
+      <button class="bottom-nav-item active" data-page="home" onclick="studentNav('home')"><span class="icon">🏠</span><span>Home</span></button>
+      <button class="bottom-nav-item enrolled" data-page="cat" onclick="studentNav('cat')"><span class="icon">📝</span><span>CAT</span></button>
+      <button class="bottom-nav-item" data-page="pdfs" onclick="studentNav('pdfs')"><span class="icon">📄</span><span>PDFs</span></button>
+      <button class="bottom-nav-item" data-page="profile" onclick="studentNav('profile')"><span class="icon">👤</span><span>Profile</span></button>
+    </nav>
+  </div>
+</div>
+
+<!-- ============ ADMIN APP ============ -->
+<div id="adminApp" class="hidden">
+  <div class="app-layout">
+    <aside class="sidebar" id="adminSidebar">
+      <div class="sidebar-header"><div class="logo-icon">🛡️</div><div><h2>ExamHub</h2><small>Admin Panel</small></div></div>
+      <div class="sidebar-user">
+        <div class="avatar" style="background:linear-gradient(135deg,#dc3545,#ffc107)">A</div>
+        <div class="info"><div class="name" id="adminName">Admin</div><div class="role">Super Admin</div></div>
+      </div>
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-page="dashboard" onclick="adminNav('dashboard')"><span class="icon">📊</span><span>Dashboard</span></button>
+        <button class="nav-item" data-page="students" onclick="adminNav('students')"><span class="icon">👥</span><span>Abanyeshuri</span></button>
+        <button class="nav-item" data-page="results" onclick="adminNav('results')"><span class="icon">📝</span><span>Injiza Amanota</span></button>
+        <button class="nav-item" data-page="pdfs" onclick="adminNav('pdfs')"><span class="icon">📄</span><span>PDF Exams</span></button>
+        <button class="nav-item" data-page="settings" onclick="adminNav('settings')"><span class="icon">⚙️</span><span>Settings</span></button>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="nav-item" onclick="logout()"><span class="icon">🚪</span><span>Sohoka</span></button>
+      </div>
+    </aside>
+    <div class="overlay" id="adminOverlay" onclick="closeAdminSidebar()"></div>
+    <main class="main-content">
+      <div class="mobile-topbar">
+        <button class="hamburger" onclick="openAdminSidebar()">☰</button>
+        <h2>ExamHub Admin</h2>
+        <div class="avatar" style="width:34px;height:34px;font-size:.9rem;background:linear-gradient(135deg,#dc3545,#ffc107)">A</div>
+      </div>
+
+      <section class="page-section active" id="admin-page-dashboard">
+        <div class="page-header"><div><h1>Dashboard</h1><p>Incamake y'ishuri</p></div></div>
+        <div class="stats" id="adminStats"></div>
+      </section>
+
+      <section class="page-section" id="admin-page-students">
+        <div class="page-header"><div><h1>Abanyeshuri</h1><p>Emeza cyangwa usibe abanyeshuri</p></div></div>
+        <div class="card">
+          <div class="search-box"><input type="text" id="searchStudents" placeholder="Shakisha ku izina cyangwa email..." oninput="renderAdminStudents()"></div>
+          <div class="filters">
+            <select id="filterSchool" onchange="renderAdminStudents()"><option value="">Ishuri ryose</option></select>
+            <select id="filterProgramme" onchange="renderAdminStudents()"><option value="">Porogaramu yose</option></select>
+            <select id="filterYear" onchange="renderAdminStudents()"><option value="">Umwaka wose</option></select>
+            <select id="filterTrimester" onchange="renderAdminStudents()"><option value="">Trimester yose</option></select>
+            <select id="filterStatus" onchange="renderAdminStudents()">
+              <option value="">Status yose</option>
+              <option value="pending">Pending</option>
+              <option value="approved">Approved</option>
+            </select>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Amazina</th><th>Email</th><th>Ishuri</th><th>Porogaramu</th><th>Umwaka</th><th>Trimester</th><th>Status</th><th>Ibikorwa</th></tr></thead>
+              <tbody id="studentsTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="page-section" id="admin-page-results">
+        <div class="page-header"><div><h1>Injiza Amanota</h1><p>Injiza, hindura cyangwa urebe amanota</p></div></div>
+        <div class="card">
+          <div class="card-header"><h2><span class="emoji">📝</span>Injiza Amanota Mashya</h2></div>
+          <div class="note-box">CAT/10 · Midterm/40 · Final/40 · Total/100</div>
+          <div class="form-grid">
+            <div class="form-group full"><label>Umunyeshuri *</label><select id="resultStudent" onchange="onResultStudentChange()"></select></div>
+            <div class="form-group"><label>Isomo *</label><input type="text" id="resultSubject" placeholder="Mathematics"></div>
+            <div class="form-group"><label>Semester *</label>
+              <select id="resultSemester">
+                <option value="Trimester 1">Trimester 1</option>
+                <option value="Trimester 2">Trimester 2</option>
+                <option value="Trimester 3">Trimester 3</option>
+              </select>
+            </div>
+            <div class="form-group"><label>CAT (/10) *</label><input type="number" id="resultCat" min="0" max="10" step="0.5"></div>
+            <div class="form-group"><label>Midterm (/40) *</label><input type="number" id="resultMid" min="0" max="40" step="0.5"></div>
+            <div class="form-group"><label>Final (/40) *</label><input type="number" id="resultFinal" min="0" max="40" step="0.5"></div>
+          </div>
+          <p id="resultError" class="error"></p>
+          <button class="btn btn-success" style="margin-top:14px" onclick="saveResult(this)">💾 Bika Amanota</button>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h2><span class="emoji">📊</span>Amanota yose</h2></div>
+          <div class="search-box"><input type="text" id="searchResults" placeholder="Shakisha ku izina, isomo cyangwa ishuri..." oninput="renderAllResults()"></div>
+          <div class="filters">
+            <select id="resFilterSchool" onchange="renderAllResults()"><option value="">Ishuri ryose</option></select>
+            <select id="resFilterProgramme" onchange="renderAllResults()"><option value="">Porogaramu yose</option></select>
+            <select id="resFilterSemester" onchange="renderAllResults()">
+              <option value="">Semester yose</option>
+              <option value="Trimester 1">Trimester 1</option>
+              <option value="Trimester 2">Trimester 2</option>
+              <option value="Trimester 3">Trimester 3</option>
+            </select>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Umunyeshuri</th><th>Ishuri</th><th>Porogaramu</th><th>Isomo</th><th>Semester</th><th>CAT/10</th><th>Mid/40</th><th>Final/40</th><th>Total</th><th>Grade</th><th>Ibikorwa</th></tr></thead>
+              <tbody id="resultsTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="page-section" id="admin-page-pdfs">
+        <div class="page-header"><div><h1>PDF Exams</h1><p>Ongeraho cyangwa ucunge PDF z'ibizamini</p></div></div>
+        <div class="card">
+          <div class="card-header"><h2><span class="emoji">📤</span>Ongeraho PDF Nshya</h2></div>
+          <div class="note-box">PDF max 3MB. Ishuri + Porogaramu + Umwaka + Trimester bigena abazayibona.</div>
+          <div class="form-grid">
+            <div class="form-group"><label>Ishuri *</label><select id="pdfSchool" onchange="onPdfSchoolChange()"></select></div>
+            <div class="form-group"><label>Porogaramu *</label><select id="pdfProgramme" disabled></select></div>
+            <div class="form-group"><label>Umwaka *</label><select id="pdfYear"></select></div>
+            <div class="form-group"><label>Trimester *</label><select id="pdfTrimester"></select></div>
+            <div class="form-group"><label>Isomo *</label><input type="text" id="pdfSubject" placeholder="Mathematics"></div>
+            <div class="form-group"><label>Izina rya PDF *</label><input type="text" id="pdfTitle" placeholder="CAT 1 2024"></div>
+            <div class="form-group full"><label>Dosiye PDF *</label><input type="file" id="pdfFile" accept="application/pdf"></div>
+          </div>
+          <p id="pdfError" class="error"></p>
+          <button class="btn btn-purple" style="margin-top:14px" onclick="uploadPdf(this)">📤 Ongeraho PDF</button>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h2><span class="emoji">📚</span>PDF Zose</h2></div>
+          <div class="filters">
+            <select id="pdfFilterSchool" onchange="renderAdminPdfs()"><option value="">Ishuri ryose</option></select>
+            <select id="pdfFilterProgramme" onchange="renderAdminPdfs()"><option value="">Porogaramu yose</option></select>
+            <select id="pdfFilterYear" onchange="renderAdminPdfs()"><option value="">Umwaka wose</option></select>
+            <select id="pdfFilterTrimester" onchange="renderAdminPdfs()"><option value="">Trimester yose</option></select>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Izina</th><th>Isomo</th><th>Ishuri</th><th>Porogaramu</th><th>Umwaka</th><th>Trimester</th><th>Ingano</th><th>Ibikorwa</th></tr></thead>
+              <tbody id="pdfsTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="page-section" id="admin-page-settings">
+        <div class="page-header"><div><h1>Settings</h1><p>Backup, Restore na Password</p></div></div>
+        <div class="card">
+          <div class="card-header"><h2><span class="emoji">💾</span>Backup & Restore</h2></div>
+          <p style="color:var(--muted);font-size:.88rem;margin-bottom:16px">Bika data yose muri dosiye JSON.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn btn-primary" onclick="backupData()">⬇️ Download Backup</button>
+            <button class="btn btn-warning" onclick="document.getElementById('restoreFile').click()">⬆️ Restore</button>
+            <input type="file" id="restoreFile" accept="application/json" style="display:none" onchange="restoreData(this)">
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><h2><span class="emoji">🔐</span>Guhindura Ijambo ry'Ibanga (Admin)</h2></div>
+          <div class="form-grid">
+            <div class="form-group full"><label>Ijambo rya kera *</label><input type="password" id="oldPass"></div>
+            <div class="form-group full"><label>Ijambo rishya *</label><input type="password" id="newPass"></div>
+            <div class="form-group full"><label>Emeza *</label><input type="password" id="confirmPass"></div>
+          </div>
+          <p id="passError" class="error"></p>
+          <button class="btn btn-success" style="margin-top:14px" onclick="changeAdminPassword(this)">🔐 Hindura</button>
+        </div>
+        <div class="card">
+          <div class="card-header"><h2><span class="emoji">⚠️</span>Danger Zone</h2></div>
+          <p style="color:var(--muted);font-size:.88rem;margin-bottom:16px">Ibi bikorwa ntibishobora gusubizwa.</p>
+          <button class="btn btn-danger" onclick="clearAllData()">🗑 Siba Data Yose</button>
+        </div>
+      </section>
+    </main>
+    <nav class="bottom-nav">
+      <button class="bottom-nav-item active" data-page="dashboard" onclick="adminNav('dashboard')"><span class="icon">📊</span><span>Dash</span></button>
+      <button class="bottom-nav-item" data-page="students" onclick="adminNav('students')"><span class="icon">👥</span><span>Students</span></button>
+      <button class="bottom-nav-item" data-page="results" onclick="adminNav('results')"><span class="icon">📝</span><span>Results</span></button>
+      <button class="bottom-nav-item" data-page="pdfs" onclick="adminNav('pdfs')"><span class="icon">📄</span><span>PDFs</span></button>
+      <button class="bottom-nav-item" data-page="settings" onclick="adminNav('settings')"><span class="icon">⚙️</span><span>Settings</span></button>
+    </nav>
+  </div>
+</div>
+
+<!-- ============ EDIT RESULT MODAL ============ -->
+<div class="modal-overlay" id="editResultModal">
+  <div class="modal">
+    <div class="modal-header"><h2>✏️ Hindura Amanota</h2><button class="modal-close" onclick="closeEditResult()">✕</button></div>
+    <div class="form-grid">
+      <div class="form-group full"><label>Umunyeshuri</label><input type="text" id="editStudentName" readonly></div>
+      <div class="form-group full"><label>Isomo *</label><input type="text" id="editSubject"></div>
+      <div class="form-group full"><label>Semester *</label>
+        <select id="editSemester">
+          <option value="Trimester 1">Trimester 1</option>
+          <option value="Trimester 2">Trimester 2</option>
+          <option value="Trimester 3">Trimester 3</option>
+        </select>
+      </div>
+      <div class="form-group"><label>CAT (/10) *</label><input type="number" id="editCat" min="0" max="10" step="0.5"></div>
+      <div class="form-group"><label>Midterm (/40) *</label><input type="number" id="editMid" min="0" max="40" step="0.5"></div>
+      <div class="form-group"><label>Final (/40) *</label><input type="number" id="editFinal" min="0" max="40" step="0.5"></div>
+    </div>
+    <p id="editError" class="error"></p>
+    <div style="display:flex;gap:10px;margin-top:16px">
+      <button class="btn btn-ghost btn-block" onclick="closeEditResult()">Reka</button>
+      <button class="btn btn-success btn-block" onclick="saveEditedResult(this)">💾 Bika</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ CHANGE STUDENT PASSWORD MODAL ============ -->
+<div class="modal-overlay" id="changePassModal">
+  <div class="modal">
+    <div class="modal-header"><h2>🔐 Hindura Ijambo ry'Ibanga</h2><button class="modal-close" onclick="closeChangePass()">✕</button></div>
+    <p style="color:var(--muted);font-size:.88rem;margin-bottom:16px">Umunyeshuri: <strong id="passStudentName"></strong></p>
+    <div class="form-grid">
+      <div class="form-group full"><label>Ijambo rishya *</label><input type="password" id="modalNewPass" placeholder="Nibura 6"></div>
+      <div class="form-group full"><label>Emeza *</label><input type="password" id="modalConfirmPass" placeholder="Subiramo"></div>
+    </div>
+    <p id="modalPassError" class="error"></p>
+    <div style="display:flex;gap:10px;margin-top:16px">
+      <button class="btn btn-ghost btn-block" onclick="closeChangePass()">Reka</button>
+      <button class="btn btn-success btn-block" onclick="saveStudentPassword(this)">🔐 Hindura</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   EAUR CONFIG
+   ========================================================= */
+const EAUR_CONFIG = {
+  campuses: ['Nyagatare Campus','Kigali Campus'],
+  schools: {
+    'School of Business Administration and Management Studies': ['Economics','Accounting','Finance','Marketing','Procurement','Human Resource Management','Credit Management','Leisure, Tourism and Hotel Management'],
+    'School of Education': ['Mathematics and Computer Science with Education','Mathematics and Physics with Education','History and Geography with Education'],
+    'School of Mass Communication': ['Mass Communication'],
+    'School of Film Making and Film Production': ['Film Making and Production'],
+    'School of Industrial Art and Design': ['Industrial and Fine Arts','Industrial Design','Fashion Design','Visual Communication'],
+    'School of Hospitality, Leisure and Tourism Management': ['Leisure, Tourism and Hotel Management','Hospitality and Hotel Management']
+  },
+  years: ['Year 1','Year 2','Year 3','Year 4'],
+  trimesters: ['Trimester 1','Trimester 2','Trimester 3']
+};
+
+const DB = {
+  get(key){ try{ return JSON.parse(localStorage.getItem(key)) || []; }catch(e){ return []; } },
+  set(key,val){ localStorage.setItem(key, JSON.stringify(val)); },
+  keyStudents: 'eaur_students', keyResults: 'eaur_results',
+  keyAdmins: 'eaur_admins', keyPdfs: 'eaur_pdfs', keySession: 'eaur_session'
+};
+
+(function seedAdmin(){
+  const admins = DB.get(DB.keyAdmins);
+  if(!admins.length){
+    admins.push({ id:'admin-1', name:'Super Admin', email:'admin@eaur.rw', password:'admin123', role:'admin' });
+    DB.set(DB.keyAdmins, admins);
+  }
+})();
+
+function $(id){ return document.getElementById(id); }
+function showError(elId,msg){ const e=$(elId); e.textContent=msg; e.classList.add('show'); }
+function hideError(elId){ const e=$(elId); e.textContent=''; e.classList.remove('show'); }
+function uid(p){ return p+'-'+Date.now()+'-'+Math.floor(Math.random()*1000); }
+function fillSelect(el,options,placeholder){
+  el.innerHTML = `<option value="">${placeholder}</option>` + options.map(o => `<option value="${o}">${o}</option>`).join('');
+}
+function formatBytes(b){
+  if(b < 1024) return b + ' B';
+  if(b < 1048576) return (b/1024).toFixed(1) + ' KB';
+  return (b/1048576).toFixed(2) + ' MB';
+}
+function initials(f,l){ return ((f||'?')[0] + (l||'?')[0]).toUpperCase(); }
+
+function calculateGrade(total){
+  if(total >= 80) return { letter:'A', points:4.0, color:'a' };
+  if(total >= 70) return { letter:'B', points:3.0, color:'b' };
+  if(total >= 60) return { letter:'C', points:2.0, color:'c' };
+  if(total >= 50) return { letter:'D', points:1.0, color:'d' };
+  return { letter:'F', points:0.0, color:'f' };
+}
+function calculateGPA(results){
+  if(!results.length) return 0;
+  const tp = results.reduce((s, r) => s + calculateGrade((r.cat||0)+(r.midterm||0)+(r.final||0)).points, 0);
+  return (tp / results.length).toFixed(2);
+}
+function gradeBadge(total){
+  const g = calculateGrade(total);
+  return `<span class="grade grade-${g.color}">${g.letter}</span>`;
+}
+
+function showToast(message, type='success', duration=3500){
+  const container = $('toastContainer');
+  const icons = { success:'✅', error:'❌', warning:'⚠️', info:'ℹ️' };
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.innerHTML = `<span>${icons[type]||''}</span><span>${message}</span>`;
+  container.appendChild(toast);
+  setTimeout(() => { toast.classList.add('hide'); setTimeout(() => toast.remove(), 300); }, duration);
+}
+function setLoading(btn, loading, text){
+  if(!btn) return;
+  if(loading){
+    btn.dataset.original = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = `<span class="spinner"></span> ${text || 'Tegereza...'}`;
+  } else {
+    btn.disabled = false;
+    if(btn.dataset.original) btn.innerHTML = btn.dataset.original;
+  }
+}
+
+document.addEventListener('click', function(e){
+  const btn = e.target.closest('.btn');
+  if(!btn) return;
+  const rect = btn.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height);
+  const ripple = document.createElement('span');
+  ripple.className = 'ripple';
+  ripple.style.width = ripple.style.height = size + 'px';
+  ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+  ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+  btn.appendChild(ripple);
+  setTimeout(() => ripple.remove(), 600);
+});
+
+/* =========================================================
+   AUTH
+   ========================================================= */
+function showLoginPage(){ $('registerPage').classList.add('hidden'); $('loginPage').classList.remove('hidden'); hideError('loginError'); }
+function showRegisterPage(){ $('loginPage').classList.add('hidden'); $('registerPage').classList.remove('hidden'); hideError('regError'); }
+
+function initRegisterForm(){
+  fillSelect($('regCampus'), EAUR_CONFIG.campuses, 'Hitamo Campus');
+  fillSelect($('regSchool'), Object.keys(EAUR_CONFIG.schools), 'Hitamo Ishuri');
+  $('regProgramme').innerHTML = '<option value="">Hitamo Ishuri mbere</option>';
+  $('regProgramme').disabled = true;
+  fillSelect($('regYear'), EAUR_CONFIG.years, 'Hitamo Umwaka');
+  fillSelect($('regTrimester'), EAUR_CONFIG.trimesters, 'Hitamo Trimester');
+}
+
+function onSchoolChange(){
+  const school = $('regSchool').value;
+  const prog = $('regProgramme');
+  if(!school){ prog.innerHTML = '<option value="">Hitamo Ishuri mbere</option>'; prog.disabled = true; return; }
+  prog.innerHTML = '<option value="">Hitamo Porogaramu</option>' + (EAUR_CONFIG.schools[school] || []).map(p => `<option value="${p}">${p}</option>`).join('');
+  prog.disabled = false;
+}
+
+function handleRegister(btn){
+  hideError('regError');
+  const first=$('regFirstName').value.trim(), last=$('regLastName').value.trim();
+  const email=$('regEmail').value.trim().toLowerCase(), pass=$('regPassword').value;
+  const campus=$('regCampus').value, school=$('regSchool').value;
+  const prog=$('regProgramme').value, year=$('regYear').value, tri=$('regTrimester').value;
+
+  if(!first||!last||!email||!pass||!campus||!school||!prog||!year||!tri) return showError('regError','Uzuza ibice byose byasabwa (*)');
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showError('regError','Email ntiyemewe');
+  if(pass.length < 6) return showError('regError','Ijambo ry\'ibanga: nibura inyuguti 6');
+
+  const students = DB.get(DB.keyStudents);
+  if(students.some(s => s.email === email)) return showError('regError','Iyi email yamaze kwiyandikisha');
+
+  setLoading(btn, true, 'Tubika...');
+  setTimeout(() => {
+    students.push({ id: uid('stu'), firstName:first, lastName:last, email, password:pass, campus, school, programme:prog, year, trimester:tri, role:'student', approvalStatus:'pending', createdAt:new Date().toISOString() });
+    DB.set(DB.keyStudents, students);
+    setLoading(btn, false);
+    showToast('Kwiyandikisha byagenze neza! Tegereza Admin.', 'success');
+    setTimeout(() => {
+      showLoginPage();
+      $('loginEmail').value = email;
+      $('loginPassword').value = '';
+    }, 1200);
+  }, 500);
+}
+
+function handleLogin(btn){
+  hideError('loginError');
+  const email=$('loginEmail').value.trim().toLowerCase();
+  const pass=$('loginPassword').value;
+  if(!email || !pass) return showError('loginError','Uzuza email na ijambo ry\'ibanga');
+
+  setLoading(btn, true, 'Tugenzura...');
+  setTimeout(() => {
+    const admin = DB.get(DB.keyAdmins).find(a => a.email === email && a.password === pass);
+    if(admin){
+      DB.set(DB.keySession, { role:'admin', id:admin.id, name:admin.name, email:admin.email });
+      setLoading(btn, false);
+      showToast(`Murakaza neza, ${admin.name}!`, 'success');
+      enterAdmin();
+      return;
+    }
+    const student = DB.get(DB.keyStudents).find(s => s.email === email && s.password === pass);
+    if(student){
+      if(student.approvalStatus !== 'approved'){
+        setLoading(btn, false);
+        return showError('loginError','⏳ Konti yawe ntiyemejwe na Admin. Tegereza.');
+      }
+      DB.set(DB.keySession, { role:'student', id:student.id });
+      setLoading(btn, false);
+      showToast(`Murakaza neza, ${student.firstName}!`, 'success');
+      enterStudent();
+      return;
+    }
+    setLoading(btn, false);
+    showError('loginError','Email cyangwa ijambo ry\'ibanga si byo');
+  }, 400);
+}
+
+function logout(){ localStorage.removeItem(DB.keySession); location.reload(); }
+function getSession(){ try{ return JSON.parse(localStorage.getItem(DB.keySession)); }catch(e){ return null; } }
+
+window.addEventListener('DOMContentLoaded', () => {
+  initRegisterForm();
+  const s = getSession();
+  if(!s){ return; }
+  $('loginPage').classList.add('hidden');
+  $('registerPage').classList.add('hidden');
+  if(s.role === 'admin') enterAdmin();
+  else enterStudent();
+});
+
+/* =========================================================
+   STUDENT APP
+   ========================================================= */
+let currentStudent = null;
+function enterStudent(){
+  const session = getSession();
+  const student = DB.get(DB.keyStudents).find(s => s.id === session.id);
+  if(!student) return logout();
+  currentStudent = student;
+
+  $('loginPage').classList.add('hidden');
+  $('registerPage').classList.add('hidden');
+  $('adminApp').classList.add('hidden');
+  $('studentApp').classList.remove('hidden');
+
+  const inits = initials(student.firstName, student.lastName);
+  $('studentAvatar').textContent = inits;
+  $('mobileAvatar').textContent = inits;
+  $('sidebarName').textContent = `${student.firstName} ${student.lastName}`;
+  $('sidebarRole').textContent = student.programme;
+
+  $('welcomeTitle').textContent = `Muraho, ${student.firstName}! 👋`;
+  $('welcomeMeta').textContent = `${student.campus} · ${student.programme} · ${student.year} · ${student.trimester}`;
+
+  renderStudentStats(student);
+  renderStudentHomeSummary(student);
+  renderStudentCATs();
+  renderStudentPdfs(student);
+  renderStudentProfile(student);
+  studentNav('home');
+}
+
+function studentNav(page){
+  document.querySelectorAll('#studentApp .page-section').forEach(s => s.classList.remove('active'));
+  $('page-' + page).classList.add('active');
+  document.querySelectorAll('#studentSidebar .nav-item[data-page]').forEach(b => b.classList.toggle('active', b.dataset.page === page));
+  document.querySelectorAll('#studentApp .bottom-nav-item').forEach(b => b.classList.toggle('active', b.dataset.page === page));
+  closeSidebar();
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+function renderStudentStats(student){
+  const results = DB.get(DB.keyResults).filter(r => r.studentId === student.id);
+  const pdfs = DB.get(DB.keyPdfs).filter(p => p.school === student.school && p.programme === student.programme && p.year === student.year);
+  const avg = results.length ? (results.reduce((s,r) => s + ((r.cat||0)+(r.midterm||0)+(r.final||0)), 0) / results.length).toFixed(1) : '0';
+  const gpa = calculateGPA(results);
+  $('studentStats').innerHTML = `
+    <div class="stat blue"><div class="stat-icon">📚</div><div class="num">${results.length}</div><div class="lbl">Amanota</div></div>
+    <div class="stat green"><div class="stat-icon">📈</div><div class="num">${avg}</div><div class="lbl">Average /100</div></div>
+    <div class="stat yellow"><div class="stat-icon">🎯</div><div class="num">${gpa}</div><div class="lbl">GPA /4.0</div></div>
+    <div class="stat purple"><div class="stat-icon">📄</div><div class="num">${pdfs.length}</div><div class="lbl">PDF Exams</div></div>
+  `;
+  $('catCount').textContent = results.length;
+  $('pdfsCount').textContent = pdfs.length;
+}
+
+function renderStudentHomeSummary(student){
+  const results = DB.get(DB.keyResults).filter(r => r.studentId === student.id);
+  const wrap = $('homeResultsSummary');
+  if(!results.length){
+    wrap.innerHTML = `<div class="empty-state"><div class="icon">📭</div><p>Nta manota arashyirwaho. Tegereza Admin.</p></div>`;
+    return;
+  }
+  const bySem = {};
+  results.forEach(r => { const s = r.semester||'Nta semester'; (bySem[s]=bySem[s]||[]).push(r); });
+  wrap.innerHTML = Object.keys(bySem).sort().map(sem => {
+    const avg = (bySem[sem].reduce((s,r)=>s+((r.cat||0)+(r.midterm||0)+(r.final||0)),0)/bySem[sem].length).toFixed(1);
+    const gpa = calculateGPA(bySem[sem]);
+    return `<div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);gap:10px;flex-wrap:wrap">
+      <div><strong>${sem}</strong><div style="font-size:.8rem;color:var(--muted)">${bySem[sem].length} amasomo</div></div>
+      <div style="display:flex;gap:16px;align-items:center">
+        <div style="text-align:right"><div style="font-size:1.1rem;font-weight:800;color:var(--success)">${avg}<span style="font-size:.75rem;color:var(--muted)">/100</span></div><div style="font-size:.7rem;color:var(--muted)">AVERAGE</div></div>
+        <div style="text-align:right"><div style="font-size:1.1rem;font-weight:800;color:var(--purple)">${gpa}</div><div style="font-size:.7rem;color:var(--muted)">GPA</div></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* =========================================================
+   ENROLLED CAT PAGE
+   ========================================================= */
+function renderStudentCATs(){
+  if(!currentStudent) return;
+  const results = DB.get(DB.keyResults).filter(r => r.studentId === currentStudent.id);
+  const search = ($('catSearch').value || '').toLowerCase().trim();
+  const filterSem = $('catFilterSemester').value;
+
+  const filtered = results.filter(r => {
+    if(filterSem && r.semester !== filterSem) return false;
+    if(search && !r.subject.toLowerCase().includes(search)) return false;
+    return true;
+  });
+
+  const wrap = $('studentCATs');
+  if(!filtered.length){
+    wrap.innerHTML = `<div class="card"><div class="empty-state"><div class="icon">📝</div><p>Nta CAT ihuye n'ibyo washakishije. Tegereza Admin.</p></div></div>`;
+    return;
+  }
+
+  // Group by semester
+  const bySem = {};
+  filtered.forEach(r => { const s = r.semester||'Nta semester'; (bySem[s]=bySem[s]||[]).push(r); });
+
+  wrap.innerHTML = Object.keys(bySem).sort().map(sem => {
+    const cards = bySem[sem].map((r, idx) => {
+      const total = (r.cat||0) + (r.midterm||0) + (r.final||0);
+      const grade = calculateGrade(total);
+      const catPct = ((r.cat||0) / 10 * 100).toFixed(0);
+      const midPct = ((r.midterm||0) / 40 * 100).toFixed(0);
+      const finPct = ((r.final||0) / 40 * 100).toFixed(0);
+      return `
+        <div class="cat-card" style="animation-delay:${idx * 0.05}s">
+          <div class="cat-header">
+            <div class="cat-icon">📝</div>
+            <span class="cat-status done">✓ Yakozwe</span>
+          </div>
+          <div class="cat-subject">${r.subject}</div>
+          <div class="cat-meta">
+            <span><strong>📅 Semester:</strong> ${r.semester}</span>
+            <span><strong>📊 CAT:</strong> ${r.cat??0}/10 (${catPct}%)</span>
+            <span><strong>📝 Midterm:</strong> ${r.midterm??0}/40 (${midPct}%)</span>
+            <span><strong>📄 Final:</strong> ${r.final??0}/40 (${finPct}%)</span>
+          </div>
+          <div class="cat-score">
+            <span class="score-num">${total}</span>
+            <span class="score-total">/100</span>
+            <span class="score-label">Total ${gradeBadge(total)}</span>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    const semAvg = (bySem[sem].reduce((s,r)=>s+((r.cat||0)+(r.midterm||0)+(r.final||0)),0)/bySem[sem].length).toFixed(1);
+    const semGPA = calculateGPA(bySem[sem]);
+
+    return `
+      <div class="card">
+        <div class="card-header">
+          <h2><span class="emoji">📅</span>${sem}</h2>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <span class="badge badge-school">Avg: ${semAvg}/100</span>
+            <span class="badge badge-approved">GPA: ${semGPA}</span>
+          </div>
+        </div>
+        <div class="cat-grid">${cards}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderStudentPdfs(student){
+  const filtered = DB.get(DB.keyPdfs).filter(p => p.school === student.school && p.programme === student.programme && p.year === student.year);
+  const wrap = $('studentPdfs');
+  if(!filtered.length){
+    wrap.innerHTML = `<div class="card"><div class="empty-state"><div class="icon">📄</div><p>Nta PDF ya exam yabonetse.</p></div></div>`;
+    return;
+  }
+  wrap.innerHTML = `<div class="pdf-grid">` + filtered.map(p => `
+    <div class="pdf-card">
+      <div class="pdf-icon">📄</div>
+      <div class="pdf-title">${p.title}</div>
+      <div class="pdf-meta">
+        <strong>Isomo:</strong> ${p.subject}<br>
+        <strong>${p.year}</strong> · ${p.trimester}<br>
+        <strong>Ingano:</strong> ${formatBytes(p.size)}
+      </div>
+      <div class="pdf-actions">
+        <button class="btn btn-primary btn-sm btn-block" onclick="openPdf('${p.id}')">Fungura PDF →</button>
+      </div>
+    </div>
+  `).join('') + `</div>`;
+}
+
+function renderStudentProfile(student){
+  $('profileCard').innerHTML = `
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;flex-wrap:wrap">
+      <div class="avatar" style="width:70px;height:70px;font-size:1.6rem">${initials(student.firstName,student.lastName)}</div>
+      <div><h2 style="margin:0">${student.firstName} ${student.lastName}</h2><p style="color:var(--muted);font-size:.9rem">${student.email}</p></div>
+    </div>
+    <div class="form-grid">
+      <div class="form-group"><label>Campus</label><input value="${student.campus}" readonly></div>
+      <div class="form-group"><label>Ishuri</label><input value="${student.school}" readonly></div>
+      <div class="form-group full"><label>Porogaramu</label><input value="${student.programme}" readonly></div>
+      <div class="form-group"><label>Umwaka</label><input value="${student.year}" readonly></div>
+      <div class="form-group"><label>Trimester</label><input value="${student.trimester}" readonly></div>
+      <div class="form-group full"><label>Status</label><input value="${student.approvalStatus === 'approved' ? '✅ Yemejwe' : '⏳ Itagereje'}" readonly></div>
+    </div>
+    <div style="margin-top:20px;padding-top:20px;border-top:1px solid var(--border)">
+      <button class="btn btn-warning" onclick="openStudentChangePass()">🔐 Hindura Ijambo ry'Ibanga</button>
+    </div>
+  `;
+}
+
+function openStudentChangePass(){
+  const session = getSession();
+  const student = DB.get(DB.keyStudents).find(s => s.id === session.id);
+  if(!student) return;
+  currentStudentPassId = student.id;
+  $('passStudentName').textContent = `${student.firstName} ${student.lastName}`;
+  $('modalNewPass').value = '';
+  $('modalConfirmPass').value = '';
+  hideError('modalPassError');
+  $('changePassModal').classList.add('show');
+}
+
+function openSidebar(){ $('studentSidebar').classList.add('open'); $('overlay').classList.add('show'); }
+function closeSidebar(){ $('studentSidebar').classList.remove('open'); $('overlay').classList.remove('show'); }
+
+/* =========================================================
+   ADMIN APP
+   ========================================================= */
+function enterAdmin(){
+  const session = getSession();
+  $('loginPage').classList.add('hidden');
+  $('registerPage').classList.add('hidden');
+  $('studentApp').classList.add('hidden');
+  $('adminApp').classList.remove('hidden');
+  $('adminName').textContent = session.name;
+
+  initAdminFilters();
+  renderAdminStats();
+  renderAdminStudents();
+  renderResultStudentSelect();
+  renderAllResults();
+  initPdfForm();
+  renderAdminPdfs();
+  adminNav('dashboard');
+}
+
+function adminNav(page){
+  document.querySelectorAll('#adminApp .page-section').forEach(s => s.classList.remove('active'));
+  $('admin-page-' + page).classList.add('active');
+  document.querySelectorAll('#adminSidebar .nav-item[data-page]').forEach(b => b.classList.toggle('active', b.dataset.page === page));
+  document.querySelectorAll('#adminApp .bottom-nav-item').forEach(b => b.classList.toggle('active', b.dataset.page === page));
+  closeAdminSidebar();
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+function openAdminSidebar(){ $('adminSidebar').classList.add('open'); $('adminOverlay').classList.add('show'); }
+function closeAdminSidebar(){ $('adminSidebar').classList.remove('open'); $('adminOverlay').classList.remove('show'); }
+
+function initAdminFilters(){
+  fillSelect($('filterSchool'), Object.keys(EAUR_CONFIG.schools), 'Ishuri ryose');
+  fillSelect($('resFilterSchool'), Object.keys(EAUR_CONFIG.schools), 'Ishuri ryose');
+  fillSelect($('pdfFilterSchool'), Object.keys(EAUR_CONFIG.schools), 'Ishuri ryose');
+
+  $('filterSchool').addEventListener('change', () => {
+    const s = $('filterSchool').value;
+    fillSelect($('filterProgramme'), s ? EAUR_CONFIG.schools[s] : [], 'Porogaramu yose');
+    renderAdminStudents();
+  });
+  $('resFilterSchool').addEventListener('change', () => {
+    const s = $('resFilterSchool').value;
+    fillSelect($('resFilterProgramme'), s ? EAUR_CONFIG.schools[s] : [], 'Porogaramu yose');
+    renderAllResults();
+  });
+  $('pdfFilterSchool').addEventListener('change', () => {
+    const s = $('pdfFilterSchool').value;
+    fillSelect($('pdfFilterProgramme'), s ? EAUR_CONFIG.schools[s] : [], 'Porogaramu yose');
+    renderAdminPdfs();
+  });
+
+  fillSelect($('filterYear'), EAUR_CONFIG.years, 'Umwaka wose');
+  fillSelect($('filterTrimester'), EAUR_CONFIG.trimesters, 'Trimester yose');
+  fillSelect($('pdfFilterYear'), EAUR_CONFIG.years, 'Umwaka wose');
+  fillSelect($('pdfFilterTrimester'), EAUR_CONFIG.trimesters, 'Trimester yose');
+}
+
+function renderAdminStats(){
+  const students = DB.get(DB.keyStudents);
+  const results  = DB.get(DB.keyResults);
+  const pdfs     = DB.get(DB.keyPdfs);
+  $('adminStats').innerHTML = `
+    <div class="stat blue"><div class="stat-icon">👥</div><div class="num">${students.length}</div><div class="lbl">Abanyeshuri</div></div>
+    <div class="stat yellow"><div class="stat-icon">⏳</div><div class="num">${students.filter(s=>s.approvalStatus==='pending').length}</div><div class="lbl">Pending</div></div>
+    <div class="stat green"><div class="stat-icon">✅</div><div class="num">${students.filter(s=>s.approvalStatus==='approved').length}</div><div class="lbl">Approved</div></div>
+    <div class="stat purple"><div class="stat-icon">📝</div><div class="num">${results.length}</div><div class="lbl">Amanota</div></div>
+    <div class="stat red"><div class="stat-icon">📄</div><div class="num">${pdfs.length}</div><div class="lbl">PDF Exams</div></div>
+  `;
+}
+
+function renderAdminStudents(){
+  const students = DB.get(DB.keyStudents);
+  const search = ($('searchStudents').value || '').toLowerCase().trim();
+  const fS=$('filterSchool').value, fP=$('filterProgramme').value;
+  const fY=$('filterYear').value, fT=$('filterTrimester').value, fSt=$('filterStatus').value;
+
+  const filtered = students.filter(s => {
+    if(fS && s.school !== fS) return false;
+    if(fP && s.programme !== fP) return false;
+    if(fY && s.year !== fY) return false;
+    if(fT && s.trimester !== fT) return false;
+    if(fSt && s.approvalStatus !== fSt) return false;
+    if(search){
+      const hay = `${s.firstName} ${s.lastName} ${s.email} ${s.programme}`.toLowerCase();
+      if(!hay.includes(search)) return false;
+    }
+    return true;
+  });
+
+  const tbody = $('studentsTableBody');
+  if(!filtered.length){
+    tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state"><div class="icon">🔍</div><p>Nta munyeshuri uhuye n'ibyo washakishije</p></div></td></tr>`;
+    return;
+  }
+  tbody.innerHTML = filtered.map(s => `
+    <tr>
+      <td><strong>${s.firstName} ${s.lastName}</strong></td>
+      <td>${s.email}</td>
+      <td>${s.school}</td>
+      <td>${s.programme}</td>
+      <td>${s.year}</td>
+      <td>${s.trimester}</td>
+      <td><span class="badge ${s.approvalStatus==='approved'?'badge-approved':'badge-pending'}">${s.approvalStatus}</span></td>
+      <td style="white-space:nowrap">
+        ${s.approvalStatus==='pending'
+          ? `<button class="btn btn-success btn-sm" onclick="approveStudent('${s.id}')">✅ Emeza</button>`
+          : `<button class="btn btn-danger btn-sm" onclick="deleteStudent('${s.id}')">🗑</button>`}
+        <button class="btn btn-warning btn-sm" onclick="openAdminStudentPass('${s.id}')" title="Hindura password">🔐</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function approveStudent(id){
+  const students = DB.get(DB.keyStudents);
+  const s = students.find(x => x.id === id);
+  if(!s) return;
+  s.approvalStatus = 'approved';
+  DB.set(DB.keyStudents, students);
+  showToast(`${s.firstName} ${s.lastName} yemejwe!`, 'success');
+  renderAdminStats(); renderAdminStudents(); renderResultStudentSelect();
+}
+
+function deleteStudent(id){
+  if(!confirm('Siba uyu munyeshuri n\'amanota ye yose?')) return;
+  DB.set(DB.keyStudents, DB.get(DB.keyStudents).filter(s => s.id !== id));
+  DB.set(DB.keyResults, DB.get(DB.keyResults).filter(r => r.studentId !== id));
+  showToast('Umunyeshuri yasibwe', 'warning');
+  renderAdminStats(); renderAdminStudents(); renderResultStudentSelect(); renderAllResults();
+}
+
+function renderResultStudentSelect(){
+  const students = DB.get(DB.keyStudents).filter(s => s.approvalStatus === 'approved');
+  const sel = $('resultStudent');
+  if(!students.length){ sel.innerHTML = '<option value="">Nta munyeshuri wemejwe</option>'; return; }
+  sel.innerHTML = '<option value="">Hitamo umunyeshuri</option>' + students.map(s => `<option value="${s.id}">${s.firstName} ${s.lastName} — ${s.programme}</option>`).join('');
+}
+
+function onResultStudentChange(){
+  const sid = $('resultStudent').value;
+  if(!sid) return;
+  const s = DB.get(DB.keyStudents).find(x => x.id === sid);
+  if(s && s.trimester) $('resultSemester').value = s.trimester;
+}
+
+function saveResult(btn){
+  hideError('resultError');
+  const studentId=$('resultStudent').value, subject=$('resultSubject').value.trim();
+  const semester=$('resultSemester').value;
+  const cat=parseFloat($('resultCat').value), mid=parseFloat($('resultMid').value), fin=parseFloat($('resultFinal').value);
+
+  if(!studentId||!subject||!semester||isNaN(cat)||isNaN(mid)||isNaN(fin)) return showError('resultError','Uzuza ibice byose');
+  if(cat<0||cat>10) return showError('resultError','CAT: 0 - 10');
+  if(mid<0||mid>40) return showError('resultError','Midterm: 0 - 40');
+  if(fin<0||fin>40) return showError('resultError','Final: 0 - 40');
+
+  setLoading(btn, true, 'Tubika...');
+  setTimeout(() => {
+    const results = DB.get(DB.keyResults);
+    results.push({ id:uid('res'), studentId, subject, semester, cat, midterm:mid, final:fin, createdAt:new Date().toISOString() });
+    DB.set(DB.keyResults, results);
+    $('resultSubject').value=''; $('resultCat').value=''; $('resultMid').value=''; $('resultFinal').value='';
+    setLoading(btn, false);
+    showToast('Amanota yabitswe!', 'success');
+    renderAdminStats(); renderAllResults();
+  }, 400);
+}
+
+function renderAllResults(){
+  const results=DB.get(DB.keyResults), students=DB.get(DB.keyStudents);
+  const search = ($('searchResults').value || '').toLowerCase().trim();
+  const fS=$('resFilterSchool').value, fP=$('resFilterProgramme').value, fSem=$('resFilterSemester').value;
+
+  const enriched = results.map(r => ({ ...r, student: students.find(x => x.id === r.studentId) || {} })).filter(r => {
+    if(!r.student.id) return false;
+    if(fS && r.student.school !== fS) return false;
+    if(fP && r.student.programme !== fP) return false;
+    if(fSem && r.semester !== fSem) return false;
+    if(search){
+      const hay = `${r.student.firstName} ${r.student.lastName} ${r.subject} ${r.student.school} ${r.student.programme}`.toLowerCase();
+      if(!hay.includes(search)) return false;
+    }
+    return true;
+  });
+
+  const tbody = $('resultsTableBody');
+  if(!enriched.length){
+    tbody.innerHTML = `<tr><td colspan="11"><div class="empty-state"><div class="icon">📭</div><p>Nta manota ahuye n'ibyo washakishije</p></div></td></tr>`;
+    return;
+  }
+  tbody.innerHTML = enriched.map(r => {
+    const total=(r.cat||0)+(r.midterm||0)+(r.final||0);
+    return `<tr>
+      <td><strong>${r.student.firstName} ${r.student.lastName}</strong></td>
+      <td>${r.student.school}</td>
+      <td>${r.student.programme}</td>
+      <td>${r.subject}</td>
+      <td>${r.semester}</td>
+      <td>${r.cat}/10</td><td>${r.midterm}/40</td><td>${r.final}/40</td>
+      <td class="total-cell">${total}</td>
+      <td>${gradeBadge(total)}</td>
+      <td style="white-space:nowrap">
+        <button class="btn btn-primary btn-sm" onclick="openEditResult('${r.id}')" title="Hindura">✏️</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteResult('${r.id}')" title="Siba">🗑</button>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function deleteResult(id){
+  if(!confirm('Siba aya manota?')) return;
+  DB.set(DB.keyResults, DB.get(DB.keyResults).filter(r => r.id !== id));
+  showToast('Amanota yasibwe', 'warning');
+  renderAdminStats(); renderAllResults();
+}
+
+let editingResultId = null;
+function openEditResult(id){
+  const r = DB.get(DB.keyResults).find(x => x.id === id);
+  if(!r) return;
+  const student = DB.get(DB.keyStudents).find(s => s.id === r.studentId);
+  editingResultId = id;
+  $('editStudentName').value = student ? `${student.firstName} ${student.lastName}` : '—';
+  $('editSubject').value = r.subject;
+  $('editSemester').value = r.semester;
+  $('editCat').value = r.cat;
+  $('editMid').value = r.midterm;
+  $('editFinal').value = r.final;
+  hideError('editError');
+  $('editResultModal').classList.add('show');
+}
+function closeEditResult(){ $('editResultModal').classList.remove('show'); editingResultId = null; }
+function saveEditedResult(btn){
+  hideError('editError');
+  const subject=$('editSubject').value.trim(), semester=$('editSemester').value;
+  const cat=parseFloat($('editCat').value), mid=parseFloat($('editMid').value), fin=parseFloat($('editFinal').value);
+  if(!subject||!semester||isNaN(cat)||isNaN(mid)||isNaN(fin)) return showError('editError','Uzuza ibice byose');
+  if(cat<0||cat>10) return showError('editError','CAT: 0 - 10');
+  if(mid<0||mid>40) return showError('editError','Midterm: 0 - 40');
+  if(fin<0||fin>40) return showError('editError','Final: 0 - 40');
+  setLoading(btn, true, 'Tubika...');
+  setTimeout(() => {
+    const results = DB.get(DB.keyResults);
+    const idx = results.findIndex(r => r.id === editingResultId);
+    if(idx === -1) { setLoading(btn, false); return closeEditResult(); }
+    results[idx] = { ...results[idx], subject, semester, cat, midterm:mid, final:fin, updatedAt:new Date().toISOString() };
+    DB.set(DB.keyResults, results);
+    setLoading(btn, false);
+    showToast('Amanota yahinduwe!', 'success');
+    closeEditResult();
+    renderAdminStats(); renderAllResults();
+  }, 400);
+}
+
+let currentStudentPassId = null;
+function openAdminStudentPass(id){
+  const student = DB.get(DB.keyStudents).find(s => s.id === id);
+  if(!student) return;
+  currentStudentPassId = id;
+  $('passStudentName').textContent = `${student.firstName} ${student.lastName}`;
+  $('modalNewPass').value = '';
+  $('modalConfirmPass').value = '';
+  hideError('modalPassError');
+  $('changePassModal').classList.add('show');
+}
+function closeChangePass(){ $('changePassModal').classList.remove('show'); currentStudentPassId = null; }
+function saveStudentPassword(btn){
+  hideError('modalPassError');
+  const np=$('modalNewPass').value, cp=$('modalConfirmPass').value;
+  if(!np || np.length < 6) return showError('modalPassError','Ijambo ry\'ibanga: nibura inyuguti 6');
+  if(np !== cp) return showError('modalPassError','Amagambo y\'ibanga ntabwo ahura');
+  setLoading(btn, true, 'Tubika...');
+  setTimeout(() => {
+    const students = DB.get(DB.keyStudents);
+    const s = students.find(x => x.id === currentStudentPassId);
+    if(!s){ setLoading(btn, false); return closeChangePass(); }
+    s.password = np;
+    DB.set(DB.keyStudents, students);
+    setLoading(btn, false);
+    showToast('Ijambo ry\'ibanga ryahinduwe!', 'success');
+    closeChangePass();
+  }, 400);
+}
+
+function initPdfForm(){
+  fillSelect($('pdfSchool'), Object.keys(EAUR_CONFIG.schools), 'Hitamo Ishuri');
+  $('pdfProgramme').innerHTML = '<option value="">Hitamo Ishuri mbere</option>';
+  $('pdfProgramme').disabled = true;
+  fillSelect($('pdfYear'), EAUR_CONFIG.years, 'Hitamo Umwaka');
+  fillSelect($('pdfTrimester'), EAUR_CONFIG.trimesters, 'Hitamo Trimester');
+}
+function onPdfSchoolChange(){
+  const school=$('pdfSchool').value, prog=$('pdfProgramme');
+  if(!school){ prog.innerHTML = '<option value="">Hitamo Ishuri mbere</option>'; prog.disabled = true; return; }
+  prog.innerHTML = '<option value="">Hitamo Porogaramu</option>' + (EAUR_CONFIG.schools[school]||[]).map(p => `<option value="${p}">${p}</option>`).join('');
+  prog.disabled = false;
+}
+function uploadPdf(btn){
+  hideError('pdfError');
+  const school=$('pdfSchool').value, programme=$('pdfProgramme').value;
+  const year=$('pdfYear').value, trimester=$('pdfTrimester').value;
+  const subject=$('pdfSubject').value.trim(), title=$('pdfTitle').value.trim();
+  const file=$('pdfFile').files[0];
+  if(!school||!programme||!year||!trimester||!subject||!title||!file) return showError('pdfError','Uzuza ibice byose kandi uhitemo PDF');
+  if(file.type !== 'application/pdf') return showError('pdfError','Dosiye igomba kuba PDF');
+  if(file.size > 3*1024*1024) return showError('pdfError','PDF ntigomba kurenza 3MB');
+  setLoading(btn, true, 'Tupakira...');
+  const reader = new FileReader();
+  reader.onload = function(e){
+    const pdfs = DB.get(DB.keyPdfs);
+    pdfs.push({ id: uid('pdf'), title, subject, school, programme, year, trimester, fileName: file.name, size: file.size, data: e.target.result, uploadedAt: new Date().toISOString() });
+    try {
+      DB.set(DB.keyPdfs, pdfs);
+      $('pdfSubject').value=''; $('pdfTitle').value=''; $('pdfFile').value='';
+      setLoading(btn, false);
+      showToast('PDF yongeweho neza!', 'success');
+      renderAdminStats(); renderAdminPdfs();
+    } catch(err){
+      setLoading(btn, false);
+      showError('pdfError','LocalStorage yuzuye! Siba PDF zimwe.');
+    }
+  };
+  reader.onerror = () => { setLoading(btn, false); showError('pdfError','Habaye ikibazo'); };
+  reader.readAsDataURL(file);
+}
+function renderAdminPdfs(){
+  const pdfs = DB.get(DB.keyPdfs);
+  const fS=$('pdfFilterSchool').value, fP=$('pdfFilterProgramme').value;
+  const fY=$('pdfFilterYear').value, fT=$('pdfFilterTrimester').value;
+  const filtered = pdfs.filter(p => (!fS||p.school===fS) && (!fP||p.programme===fP) && (!fY||p.year===fY) && (!fT||p.trimester===fT));
+  const tbody = $('pdfsTableBody');
+  if(!filtered.length){
+    tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state"><div class="icon">📄</div><p>Nta PDF ihuye n'ibyo washakishije</p></div></td></tr>`;
+    return;
+  }
+  tbody.innerHTML = filtered.map(p => `
+    <tr>
+      <td><strong>${p.title}</strong></td>
+      <td>${p.subject}</td>
+      <td>${p.school}</td>
+      <td>${p.programme}</td>
+      <td>${p.year}</td>
+      <td>${p.trimester}</td>
+      <td>${formatBytes(p.size)}</td>
+      <td style="white-space:nowrap">
+        <button class="btn btn-primary btn-sm" onclick="openPdf('${p.id}')">👁</button>
+        <button class="btn btn-danger btn-sm" onclick="deletePdf('${p.id}')">🗑</button>
+      </td>
+    </tr>
+  `).join('');
+}
+function deletePdf(id){
+  if(!confirm('Siba iyi PDF?')) return;
+  DB.set(DB.keyPdfs, DB.get(DB.keyPdfs).filter(p => p.id !== id));
+  showToast('PDF yasibwe', 'warning');
+  renderAdminStats(); renderAdminPdfs();
+}
+function openPdf(id){
+  const pdf = DB.get(DB.keyPdfs).find(p => p.id === id);
+  if(!pdf) return showToast('PDF ntiyabonetse', 'error');
+  try{
+    const base64 = pdf.data.split(',')[1] || pdf.data;
+    const byteChars = atob(base64);
+    const byteNumbers = new Array(byteChars.length);
+    for(let i=0;i<byteChars.length;i++) byteNumbers[i] = byteChars.charCodeAt(i);
+    const blob = new Blob([new Uint8Array(byteNumbers)], { type:'application/pdf' });
+    const url = URL.createObjectURL(blob);
+    window.open(url, '_blank');
+    setTimeout(() => URL.revokeObjectURL(url), 60000);
+  }catch(e){ showToast('Ikibazo: ' + e.message, 'error'); }
+}
+
+function backupData(){
+  const data = {
+    version: 1, exportedAt: new Date().toISOString(),
+    students: DB.get(DB.keyStudents), results: DB.get(DB.keyResults),
+    admins: DB.get(DB.keyAdmins), pdfs: DB.get(DB.keyPdfs)
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type:'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `examhub-backup-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  showToast('Backup yabitswe!', 'success');
+}
+function restoreData(input){
+  const file = input.files[0];
+  if(!file) return;
+  if(!confirm('Ibi bizasimbuza data yose iriho. Ukomeza?')) { input.value = ''; return; }
+  const reader = new FileReader();
+  reader.onload = function(e){
+    try{
+      const data = JSON.parse(e.target.result);
+      if(!data.students && !data.results && !data.admins && !data.pdfs) return showToast('Dosiye ntiyemewe', 'error');
+      if(data.students) DB.set(DB.keyStudents, data.students);
+      if(data.results)  DB.set(DB.keyResults, data.results);
+      if(data.admins)   DB.set(DB.keyAdmins, data.admins);
+      if(data.pdfs)     DB.set(DB.keyPdfs, data.pdfs);
+      showToast('Data yasubijwe neza! Paji izasubiramo...', 'success');
+      setTimeout(() => location.reload(), 1500);
+    }catch(err){ showToast('Dosiye ntiyemewe: ' + err.message, 'error'); }
+    input.value = '';
+  };
+  reader.readAsText(file);
+}
+function changeAdminPassword(btn){
+  hideError('passError');
+  const oldP=$('oldPass').value, newP=$('newPass').value, confP=$('confirmPass').value;
+  if(!oldP || !newP || !confP) return showError('passError','Uzuza ibice byose');
+  if(newP.length < 6) return showError('passError','Ijambo rishya: nibura inyuguti 6');
+  if(newP !== confP) return showError('passError','Amagambo mashya ntabwo ahura');
+  const session = getSession();
+  const admins = DB.get(DB.keyAdmins);
+  const admin = admins.find(a => a.id === session.id);
+  if(!admin) return showError('passError','Admin ntiyabonetse');
+  if(admin.password !== oldP) return showError('passError','Ijambo rya kera si ryo');
+  setLoading(btn, true, 'Tubika...');
+  setTimeout(() => {
+    admin.password = newP;
+    DB.set(DB.keyAdmins, admins);
+    $('oldPass').value=''; $('newPass').value=''; $('confirmPass').value='';
+    setLoading(btn, false);
+    showToast('Ijambo ry\'ibanga ryahinduwe!', 'success');
+  }, 400);
+}
+function clearAllData(){
+  if(!confirm('⚠️ Ibi bizasiba ABANYESHURI BOSE, AMANOTA YOSE na PDF ZOSE. Ukomeza?')) return;
+  if(!confirm('Urabyemeza rwose? Ntibishobora gusubizwa!')) return;
+  localStorage.removeItem(DB.keyStudents); localStorage.removeItem(DB.keyResults);
+  localStorage.removeItem(DB.keyPdfs); localStorage.removeItem(DB.keySession);
+  showToast('Data yose yasibwe. Paji izasubiramo...', 'warning');
+  setTimeout(() => location.reload(), 1500);
+}
+
+$('editResultModal').addEventListener('click', e => { if(e.target.id === 'editResultModal') closeEditResult(); });
+$('changePassModal').addEventListener('click', e => { if(e.target.id === 'changePassModal') closeChangePass(); });
+</script>
+</body>
+</html>
