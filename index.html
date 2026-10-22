@@ -14,14 +14,11 @@
     --danger:#dc3545; --danger-light:#f8d7da;
     --warning:#ffc107; --warning-light:#fff3cd;
     --purple:#6f42c1; --purple-light:#e9e1f7;
-    --pink:#d63384; --pink-light:#fce4ec;
-    --cyan:#0dcaf0; --cyan-light:#cff4fc;
     --bg:#f0f4f9; --card:#ffffff; --text:#1a1f36; --muted:#6b7280;
     --border:#e5e7eb; --radius:14px; --radius-sm:10px;
     --shadow:0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
     --shadow-lg:0 10px 30px rgba(0,0,0,.1);
     --sidebar-w:260px;
-    --safe-bottom:env(safe-area-inset-bottom, 0px);
   }
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
   html,body{height:100%}
@@ -33,7 +30,6 @@
   @keyframes fadeInLeft{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
   @keyframes scaleIn{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
   @keyframes popIn{0%{opacity:0;transform:scale(.6)}70%{transform:scale(1.05)}100%{opacity:1;transform:scale(1)}}
-  @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
   @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
   @keyframes spin{to{transform:rotate(360deg)}}
   @keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
@@ -41,12 +37,8 @@
   @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
   @keyframes slideInRight{from{opacity:0;transform:translateX(100px)}to{opacity:1;transform:translateX(0)}}
   @keyframes slideOutRight{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(100px)}}
-  @keyframes glow{0%,100%{box-shadow:0 0 10px rgba(11,94,215,.3)}50%{box-shadow:0 0 25px rgba(11,94,215,.6)}}
-  @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 
-  /* ============================================================
-     BUTTONS — nice colors + icons + hover
-     ============================================================ */
+  /* BUTTONS */
   .btn{
     display:inline-flex;align-items:center;justify-content:center;gap:8px;
     padding:12px 22px;border:none;border-radius:12px;cursor:pointer;
@@ -54,50 +46,25 @@
     transition:all .28s cubic-bezier(.22,1,.36,1);
     text-decoration:none;white-space:nowrap;position:relative;overflow:hidden;
     transform:translateZ(0);min-height:44px;
-    letter-spacing:.2px;
   }
   .btn:active{transform:scale(.96)}
-  .btn-primary{
-    background:linear-gradient(135deg,#3b82f6,#0b5ed7 60%,#084298);
-    color:#fff;box-shadow:0 4px 14px rgba(11,94,215,.35);
-  }
+  .btn-primary{background:linear-gradient(135deg,#3b82f6,#0b5ed7 60%,#084298);color:#fff;box-shadow:0 4px 14px rgba(11,94,215,.35)}
   .btn-primary:hover{box-shadow:0 8px 25px rgba(11,94,215,.5);transform:translateY(-2px)}
-  .btn-success{
-    background:linear-gradient(135deg,#34d399,#198754 60%,#0f5132);
-    color:#fff;box-shadow:0 4px 14px rgba(25,135,84,.35);
-  }
+  .btn-success{background:linear-gradient(135deg,#34d399,#198754 60%,#0f5132);color:#fff;box-shadow:0 4px 14px rgba(25,135,84,.35)}
   .btn-success:hover{box-shadow:0 8px 25px rgba(25,135,84,.5);transform:translateY(-2px)}
-  .btn-danger{
-    background:linear-gradient(135deg,#f87171,#dc3545 60%,#b02a37);
-    color:#fff;box-shadow:0 4px 14px rgba(220,53,69,.35);
-  }
+  .btn-danger{background:linear-gradient(135deg,#f87171,#dc3545 60%,#b02a37);color:#fff;box-shadow:0 4px 14px rgba(220,53,69,.35)}
   .btn-danger:hover{box-shadow:0 8px 25px rgba(220,53,69,.5);transform:translateY(-2px)}
-  .btn-warning{
-    background:linear-gradient(135deg,#fcd34d,#ffc107 60%,#cc9a06);
-    color:#664d03;box-shadow:0 4px 14px rgba(255,193,7,.4);
-  }
+  .btn-warning{background:linear-gradient(135deg,#fcd34d,#ffc107 60%,#cc9a06);color:#664d03;box-shadow:0 4px 14px rgba(255,193,7,.4)}
   .btn-warning:hover{box-shadow:0 8px 25px rgba(255,193,7,.55);transform:translateY(-2px)}
-  .btn-purple{
-    background:linear-gradient(135deg,#a78bfa,#6f42c1 60%,#59359a);
-    color:#fff;box-shadow:0 4px 14px rgba(111,66,193,.35);
-  }
+  .btn-purple{background:linear-gradient(135deg,#a78bfa,#6f42c1 60%,#59359a);color:#fff;box-shadow:0 4px 14px rgba(111,66,193,.35)}
   .btn-purple:hover{box-shadow:0 8px 25px rgba(111,66,193,.5);transform:translateY(-2px)}
   .btn-ghost{background:transparent;color:var(--muted);border:1.5px solid var(--border)}
   .btn-ghost:hover{background:#f9fafb;transform:translateY(-1px);border-color:#cbd5e1}
   .btn-sm{padding:8px 14px;font-size:.8rem;border-radius:9px;min-height:36px;gap:5px}
-  .btn-lg{padding:14px 28px;font-size:1rem;border-radius:14px;min-height:52px}
   .btn-block{width:100%}
-  .btn-icon{
-    width:44px;height:44px;padding:0;border-radius:50%;
-    display:inline-flex;align-items:center;justify-content:center;
-  }
-  .btn-icon.btn-sm{width:36px;height:36px}
-
   .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.6);transform:scale(0);animation:ripple .6s ease-out;pointer-events:none}
 
-  /* ============================================================
-     AUTH PAGE
-     ============================================================ */
+  /* AUTH PAGE */
   .auth-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;position:relative;overflow:hidden;background:linear-gradient(135deg,#0b5ed7 0%,#6f42c1 50%,#0b5ed7 100%);background-size:300% 300%;animation:gradientShift 12s ease infinite}
   .auth-page::before,.auth-page::after{content:'';position:absolute;border-radius:50%;background:rgba(255,255,255,.08);pointer-events:none}
   .auth-page::before{width:400px;height:400px;top:-150px;left:-150px;animation:float 8s ease-in-out infinite}
@@ -125,18 +92,28 @@
   .error{color:var(--danger);font-size:.85rem;margin-top:8px;display:none;padding:11px 14px;background:var(--danger-light);border-radius:10px;border-left:3px solid var(--danger);font-weight:500}
   .error.show{display:block;animation:shake .4s ease, fadeIn .3s ease}
 
-  /* ============================================================
-     APP LAYOUT
-     ============================================================ */
+  /* APP LAYOUT */
   .app-layout{display:flex;min-height:100vh;animation:fadeIn .4s ease}
-  .sidebar{width:var(--sidebar-w);background:#fff;border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;bottom:0;left:0;z-index:100;transition:transform .35s cubic-bezier(.22,1,.36,1);box-shadow:var(--shadow)}
-  .sidebar-header{padding:20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;animation:fadeInDown .5s ease both}
-  .sidebar-header .logo-icon{font-size:1.6rem;animation:popIn .5s ease .2s both}
+  .sidebar{
+    width:var(--sidebar-w);background:#fff;border-right:1px solid var(--border);
+    display:flex;flex-direction:column;position:fixed;top:0;bottom:0;left:0;z-index:100;
+    transition:transform .35s cubic-bezier(.22,1,.36,1);box-shadow:var(--shadow);
+  }
+  .sidebar-header{padding:20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+  .sidebar-header .logo-area{display:flex;align-items:center;gap:10px;}
+  .sidebar-header .logo-icon{font-size:1.6rem;}
   .sidebar-header h2{font-size:1rem;font-weight:800;color:var(--primary-dark)}
   .sidebar-header small{font-size:.72rem;color:var(--muted);font-weight:500}
-  .sidebar-user{padding:18px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;animation:fadeInLeft .5s ease .1s both}
-  .avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--purple));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:1.1rem;flex-shrink:0;transition:transform .3s;box-shadow:0 4px 12px rgba(11,94,215,.3)}
-  .avatar:hover{transform:scale(1.08) rotate(-5deg)}
+  
+  /* CLOSE BUTTON KURI SIDEBAR (kuri mobile) */
+  .sidebar-close{
+    display:none;background:#f3f4f6;border:none;font-size:1.2rem;color:var(--text);
+    width:34px;height:34px;border-radius:50%;cursor:pointer;align-items:center;justify-content:center;
+  }
+  .sidebar-close:hover{background:#e5e7eb}
+
+  .sidebar-user{padding:18px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+  .avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--purple));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:1.1rem;flex-shrink:0;box-shadow:0 4px 12px rgba(11,94,215,.3)}
   .sidebar-user .info{overflow:hidden}
   .sidebar-user .name{font-weight:700;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .sidebar-user .role{font-size:.75rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -145,8 +122,7 @@
   .nav-item{
     display:flex;align-items:center;gap:12px;padding:13px 16px;
     border-radius:12px;cursor:pointer;color:var(--muted);
-    font-weight:600;font-size:.9rem;
-    transition:all .28s cubic-bezier(.22,1,.36,1);
+    font-weight:600;font-size:.9rem;transition:all .28s;
     margin-bottom:4px;border:none;background:none;width:100%;text-align:left;
     font-family:inherit;position:relative;overflow:hidden;
   }
@@ -155,164 +131,85 @@
   .nav-item:hover::before{height:60%}
   .nav-item.active{background:linear-gradient(135deg,var(--primary-light),#f0f7ff);color:var(--primary);font-weight:700}
   .nav-item.active::before{height:60%}
-  .nav-item .icon{
-    font-size:1.2rem;width:28px;height:28px;text-align:center;flex-shrink:0;
-    display:inline-flex;align-items:center;justify-content:center;
-    transition:transform .25s ease;border-radius:8px;
-  }
+  .nav-item .icon{font-size:1.2rem;width:28px;height:28px;text-align:center;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;transition:transform .25s ease;border-radius:8px}
   .nav-item:hover .icon{transform:scale(1.15)}
   .nav-item.active .icon{background:linear-gradient(135deg,var(--primary),var(--purple));color:#fff;box-shadow:0 3px 10px rgba(11,94,215,.3)}
-  .nav-item .badge-count{margin-left:auto;background:var(--primary);color:#fff;font-size:.7rem;padding:3px 9px;border-radius:20px;font-weight:700;animation:popIn .4s ease}
+  .nav-item .badge-count{margin-left:auto;background:var(--primary);color:#fff;font-size:.7rem;padding:3px 9px;border-radius:20px;font-weight:700;}
   .nav-item.enrolled .icon{background:linear-gradient(135deg,#34d399,#059669);color:#fff;box-shadow:0 3px 10px rgba(25,135,84,.3)}
   .nav-item.enrolled.active .icon{background:linear-gradient(135deg,#34d399,#059669)}
   .sidebar-footer{padding:12px 10px;border-top:1px solid var(--border)}
 
   .main-content{flex:1;margin-left:var(--sidebar-w);padding:24px;min-height:100vh;max-width:100%}
-  .page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;flex-wrap:wrap;gap:12px;animation:fadeInDown .5s ease both}
+  .page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;flex-wrap:wrap;gap:12px;}
   .page-header h1{font-size:1.5rem;font-weight:800;color:var(--text)}
   .page-header p{font-size:.88rem;color:var(--muted)}
 
-  .mobile-topbar{display:none;background:#fff;padding:12px 16px;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50;align-items:center;justify-content:space-between;box-shadow:var(--shadow)}
-  .mobile-topbar .hamburger{background:none;border:none;font-size:1.5rem;cursor:pointer;padding:6px 10px;color:var(--text);border-radius:10px;transition:background .2s, transform .2s}
-  .mobile-topbar .hamburger:active{background:#f3f4f6;transform:scale(.9)}
-  .mobile-topbar h2{font-size:1rem;font-weight:800;color:var(--primary-dark)}
-
-  /* ============================================================
-     BOTTOM NAV (mobile) — nice colors
-     ============================================================ */
-  .bottom-nav{
-    display:none;position:fixed;bottom:0;left:0;right:0;
-    background:#fff;border-top:1px solid var(--border);
-    padding:8px 4px calc(8px + var(--safe-bottom));
-    z-index:90;box-shadow:0 -4px 20px rgba(0,0,0,.08);
-    justify-content:space-around;
-    animation:slideUp .4s cubic-bezier(.22,1,.36,1) both;
+  /* TOPBAR (kuri mobile) */
+  .mobile-topbar{
+    display:none;background:linear-gradient(135deg, #fff, #f8fafc);
+    padding:12px 16px;border-bottom:1px solid var(--border);
+    position:sticky;top:0;z-index:50;align-items:center;justify-content:space-between;
+    box-shadow:0 2px 10px rgba(0,0,0,.05);
   }
-  .bottom-nav-item{
-    flex:1;display:flex;flex-direction:column;align-items:center;
-    gap:3px;background:none;border:none;cursor:pointer;
-    padding:8px 4px;color:var(--muted);font-family:inherit;
-    font-size:.68rem;font-weight:600;transition:all .25s;
-    border-radius:12px;position:relative;min-height:52px;
+  .mobile-topbar .hamburger{
+    background:#eef2f7;border:none;font-size:1.4rem;cursor:pointer;
+    padding:8px 12px;color:var(--text);border-radius:10px;
+    transition:background .2s, transform .2s;display:flex;align-items:center;justify-content:center;
   }
-  .bottom-nav-item .icon{
-    font-size:1.35rem;line-height:1;transition:all .3s;
-    display:inline-flex;align-items:center;justify-content:center;
-    width:36px;height:36px;border-radius:50%;
-  }
-  .bottom-nav-item:active{transform:scale(.92)}
-  .bottom-nav-item.active{color:var(--primary);font-weight:700}
-  .bottom-nav-item.active .icon{
-    background:linear-gradient(135deg,var(--primary),var(--purple));
-    color:#fff;transform:scale(1.1) translateY(-3px);
-    box-shadow:0 5px 15px rgba(11,94,215,.4);
-  }
-  .bottom-nav-item.enrolled.active .icon{
-    background:linear-gradient(135deg,#34d399,#059669);
-    box-shadow:0 5px 15px rgba(25,135,84,.4);
-  }
-  .bottom-nav-item.active::before{content:'';position:absolute;top:0;width:24px;height:3px;background:linear-gradient(90deg,var(--primary),var(--purple));border-radius:0 0 4px 4px;animation:scaleIn .3s ease}
+  .mobile-topbar .hamburger:active{background:#e2e8f0;transform:scale(.9)}
+  .mobile-topbar h2{font-size:1.05rem;font-weight:800;color:var(--primary-dark);letter-spacing:-.5px}
 
   .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99;animation:fadeIn .25s;backdrop-filter:blur(2px)}
   .overlay.show{display:block}
 
-  /* ============================================================
-     CARDS
-     ============================================================ */
-  .card{background:var(--card);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);margin-bottom:20px;animation:fadeInUp .45s cubic-bezier(.22,1,.36,1) both;transition:box-shadow .25s ease, transform .25s ease}
-  .card:hover{box-shadow:var(--shadow-lg)}
+  /* CARDS */
+  .card{background:var(--card);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);margin-bottom:20px;animation:fadeInUp .45s cubic-bezier(.22,1,.36,1) both;}
   .card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px}
   .card h2{font-size:1.1rem;font-weight:700;color:var(--text)}
   .card h3{font-size:.95rem;font-weight:700;color:var(--primary-dark);margin:16px 0 10px}
   .card h2 .emoji, .card h3 .emoji{margin-right:6px;display:inline-block}
 
+  /* STATS */
   .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:20px}
-  .stat{background:#fff;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden;transition:all .3s cubic-bezier(.22,1,.36,1);animation:fadeInUp .5s cubic-bezier(.22,1,.36,1) both}
-  .stat:nth-child(1){animation-delay:.05s}
-  .stat:nth-child(2){animation-delay:.1s}
-  .stat:nth-child(3){animation-delay:.15s}
-  .stat:nth-child(4){animation-delay:.2s}
-  .stat:nth-child(5){animation-delay:.25s}
-  .stat::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--purple));transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.22,1,.36,1)}
-  .stat:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
-  .stat:hover::after{transform:scaleX(1)}
-  .stat .stat-icon{position:absolute;right:14px;top:14px;font-size:1.6rem;opacity:.15;transition:all .3s}
-  .stat:hover .stat-icon{opacity:.3;transform:scale(1.1) rotate(5deg)}
+  .stat{background:#fff;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden;animation:fadeInUp .5s both}
+  .stat .stat-icon{position:absolute;right:14px;top:14px;font-size:1.6rem;opacity:.15;}
   .stat .num{font-size:2rem;font-weight:800;line-height:1.1}
   .stat .lbl{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;font-weight:600;margin-top:4px}
   .stat.blue .num{color:var(--primary)}
-  .stat.blue::after{background:linear-gradient(90deg,var(--primary),#5b9fff)}
   .stat.green .num{color:var(--success)}
-  .stat.green::after{background:linear-gradient(90deg,var(--success),#20c997)}
   .stat.yellow .num{color:#b8860b}
-  .stat.yellow::after{background:linear-gradient(90deg,var(--warning),#ffda6a)}
   .stat.purple .num{color:var(--purple)}
-  .stat.purple::after{background:linear-gradient(90deg,var(--purple),#a98ff0)}
   .stat.red .num{color:var(--danger)}
-  .stat.red::after{background:linear-gradient(90deg,var(--danger),#f55b6a)}
 
-  /* ============================================================
-     CAT CARDS (Enrolled CAT)
-     ============================================================ */
+  /* ENROLLED CAT CARDS */
   .cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
-  .cat-card{
-    background:#fff;border:1.5px solid var(--border);border-radius:16px;
-    padding:20px;position:relative;overflow:hidden;
-    transition:all .3s cubic-bezier(.22,1,.36,1);
-    animation:fadeInUp .4s cubic-bezier(.22,1,.36,1) both;
-    display:flex;flex-direction:column;gap:12px;
-  }
-  .cat-card::before{
-    content:'';position:absolute;top:0;left:0;right:0;height:5px;
-    background:linear-gradient(90deg,#34d399,#0dcaf0);
-    transform:scaleX(0);transform-origin:left;
-    transition:transform .35s cubic-bezier(.22,1,.36,1);
-  }
-  .cat-card:hover{border-color:var(--success);box-shadow:0 12px 35px rgba(25,135,84,.15);transform:translateY(-4px)}
-  .cat-card:hover::before{transform:scaleX(1)}
+  .cat-card{background:#fff;border:1.5px solid var(--border);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:12px;}
   .cat-card .cat-header{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
-  .cat-card .cat-icon{
-    font-size:1.8rem;width:52px;height:52px;border-radius:14px;
-    display:flex;align-items:center;justify-content:center;
-    background:linear-gradient(135deg,#d1fae5,#a7f3d0);
-    transition:transform .3s ease;
-  }
-  .cat-card:hover .cat-icon{transform:scale(1.1) rotate(-5deg)}
-  .cat-card .cat-status{
-    padding:4px 10px;border-radius:20px;font-size:.72rem;font-weight:700;
-  }
-  .cat-status.enrolled{background:#d1fae5;color:#065f46}
+  .cat-card .cat-icon{font-size:1.8rem;width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#d1fae5,#a7f3d0);}
+  .cat-card .cat-status{padding:4px 10px;border-radius:20px;font-size:.72rem;font-weight:700;}
   .cat-status.done{background:#cfe2ff;color:#084298}
   .cat-card .cat-subject{font-size:1.05rem;font-weight:800;color:var(--text);line-height:1.3}
   .cat-card .cat-meta{font-size:.8rem;color:var(--muted);display:flex;flex-direction:column;gap:3px}
   .cat-card .cat-meta strong{color:#374151;font-weight:600}
-  .cat-card .cat-score{
-    display:flex;align-items:baseline;gap:4px;
-    padding:10px 14px;background:linear-gradient(135deg,#f0fdf4,#dcfce7);
-    border-radius:10px;margin-top:auto;
-  }
+  .cat-card .cat-score{display:flex;align-items:baseline;gap:4px;padding:10px 14px;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-radius:10px;margin-top:auto;}
   .cat-card .cat-score .score-num{font-size:1.6rem;font-weight:800;color:var(--success)}
   .cat-card .cat-score .score-total{font-size:.9rem;color:var(--muted);font-weight:600}
   .cat-card .cat-score .score-label{margin-left:auto;font-size:.75rem;color:var(--muted);text-transform:uppercase;font-weight:700;letter-spacing:.5px}
-  .cat-card .cat-actions{display:flex;gap:8px;padding-top:6px}
 
-  /* ============================================================
-     TABLES
-     ============================================================ */
-  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--radius-sm);border:1px solid var(--border)}
-  table{width:100%;border-collapse:collapse;font-size:.87rem;min-width:500px}
-  th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--border)}
-  th{background:#f9fafb;font-weight:700;color:#374151;font-size:.78rem;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap}
+  /* TABLES */
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--radius-sm);border:1px solid var(--border);position:relative;}
+  table{width:100%;border-collapse:collapse;font-size:.87rem;min-width:600px}
+  th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;}
+  th{background:#f9fafb;font-weight:700;color:#374151;font-size:.78rem;text-transform:uppercase;letter-spacing:.4px;}
   tr:last-child td{border-bottom:none}
-  tbody tr{transition:background .15s ease}
   tbody tr:hover td{background:#f9fafb}
   .total-cell{font-weight:800;color:var(--success);font-size:.95rem}
 
-  .badge{display:inline-block;padding:4px 11px;border-radius:20px;font-size:.75rem;font-weight:700;animation:popIn .3s ease}
+  /* BADGES & GRADES */
+  .badge{display:inline-block;padding:4px 11px;border-radius:20px;font-size:.75rem;font-weight:700;}
   .badge-pending{background:var(--warning-light);color:#856404}
   .badge-approved{background:var(--success-light);color:#0f5132}
   .badge-school{background:var(--primary-light);color:var(--primary-dark)}
-
   .grade{display:inline-block;padding:3px 10px;border-radius:6px;font-weight:800;font-size:.8rem;min-width:32px;text-align:center}
   .grade-a{background:#d1e7dd;color:#0f5132}
   .grade-b{background:#cfe2ff;color:#084298}
@@ -320,40 +217,40 @@
   .grade-d{background:#ffe5d0;color:#984c0c}
   .grade-f{background:#f8d7da;color:#842029}
 
+  /* FILTERS & SEARCH */
   .filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:16px}
   .search-box{position:relative;margin-bottom:16px}
   .search-box input{padding-left:44px}
   .search-box::before{content:'🔍';position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:1rem;opacity:.5}
 
+  /* PDF GRID */
   .pdf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
-  .pdf-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);padding:18px;display:flex;flex-direction:column;gap:10px;transition:all .3s cubic-bezier(.22,1,.36,1);position:relative;overflow:hidden;animation:fadeInUp .4s cubic-bezier(.22,1,.36,1) both}
-  .pdf-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--primary),var(--purple));transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.22,1,.36,1)}
-  .pdf-card:hover{border-color:var(--primary);box-shadow:var(--shadow-lg);transform:translateY(-4px)}
-  .pdf-card:hover::before{transform:scaleX(1)}
-  .pdf-card .pdf-icon{font-size:2rem;transition:transform .3s ease}
-  .pdf-card:hover .pdf-icon{transform:scale(1.15) rotate(-5deg)}
+  .pdf-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);padding:18px;display:flex;flex-direction:column;gap:10px;}
+  .pdf-card .pdf-icon{font-size:2rem;}
   .pdf-card .pdf-title{font-weight:700;color:var(--text);font-size:.95rem;line-height:1.3}
   .pdf-card .pdf-meta{font-size:.8rem;color:var(--muted);line-height:1.6}
   .pdf-card .pdf-meta strong{color:#374151;font-weight:600}
   .pdf-card .pdf-actions{display:flex;gap:8px;margin-top:auto;padding-top:6px}
 
-  .empty-state{text-align:center;padding:40px 20px;color:var(--muted);animation:fadeIn .5s ease both}
-  .empty-state .icon{font-size:3rem;margin-bottom:12px;opacity:.5;display:inline-block;animation:float 3s ease-in-out infinite}
+  .empty-state{text-align:center;padding:40px 20px;color:var(--muted);}
+  .empty-state .icon{font-size:3rem;margin-bottom:12px;opacity:.5;display:inline-block;}
   .empty-state p{font-size:.9rem}
 
-  .note-box{background:var(--warning-light);border-left:4px solid var(--warning);padding:12px 16px;border-radius:8px;margin-bottom:16px;font-size:.85rem;color:#664d03;animation:fadeInLeft .4s ease both}
+  .note-box{background:var(--warning-light);border-left:4px solid var(--warning);padding:12px 16px;border-radius:8px;margin-bottom:16px;font-size:.85rem;color:#664d03;}
 
   .page-section{display:none}
-  .page-section.active{display:block;animation:fadeInUp .4s cubic-bezier(.22,1,.36,1)}
+  .page-section.active{display:block;animation:fadeInUp .4s ease}
   .hidden{display:none !important}
 
+  /* TOASTS */
   .toast-container{position:fixed;top:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:10px;pointer-events:none}
-  .toast{background:#fff;padding:14px 20px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.15);display:flex;align-items:center;gap:10px;font-size:.9rem;font-weight:600;animation:slideInRight .4s cubic-bezier(.22,1,.36,1) both;min-width:260px;max-width:400px;border-left:4px solid var(--primary);pointer-events:auto}
+  .toast{background:#fff;padding:14px 20px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.15);display:flex;align-items:center;gap:10px;font-size:.9rem;font-weight:600;animation:slideInRight .4s both;min-width:260px;max-width:400px;border-left:4px solid var(--primary);pointer-events:auto}
   .toast.success{border-left-color:var(--success)}
   .toast.error{border-left-color:var(--danger)}
   .toast.warning{border-left-color:var(--warning)}
   .toast.hide{animation:slideOutRight .3s ease forwards}
 
+  /* MODALS */
   .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(3px)}
   .modal-overlay.show{display:flex;animation:fadeIn .25s ease}
   .modal{background:#fff;border-radius:16px;padding:26px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;animation:scaleIn .3s cubic-bezier(.22,1,.36,1);box-shadow:0 25px 60px rgba(0,0,0,.25)}
@@ -368,12 +265,15 @@
   .auth-links .divider{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:.75rem}
   .auth-links .divider::before,.auth-links .divider::after{content:'';flex:1;height:1px;background:var(--border)}
 
+  /* ============================================================
+     MOBILE RESPONSIVE (HANO HARI IBINYURANYE)
+     ============================================================ */
   @media(max-width:900px){
     .sidebar{transform:translateX(-100%)}
     .sidebar.open{transform:translateX(0)}
-    .main-content{margin-left:0;padding:16px;padding-bottom:100px}
+    .sidebar-close{display:flex;} /* Erekana buto yo gufunga kuri telefone */
+    .main-content{margin-left:0;padding:16px;padding-bottom:24px;} /* Nta bottom nav ikibaho, tugabanya padding yo hepfo */
     .mobile-topbar{display:flex}
-    .bottom-nav{display:flex}
     .page-header h1{font-size:1.25rem}
     .form-grid{grid-template-columns:1fr}
     .stats{grid-template-columns:repeat(2,1fr);gap:12px}
@@ -382,27 +282,38 @@
     .card{padding:16px;border-radius:12px}
     .pdf-grid{grid-template-columns:1fr}
     .cat-grid{grid-template-columns:1fr}
-    table{font-size:.8rem;min-width:450px}
+    
+    /* Korohereza table kuri telefone */
+    table{font-size:.8rem;min-width:600px;}
     th,td{padding:10px}
+    
+    /* Kwerekana ko hari ibindi bice bya table ushobora kureba ukanuka */
+    .table-wrap::after {
+      content: '← Sunika urebe ibindi →';
+      display: block;
+      text-align: center;
+      font-size: 0.7rem;
+      color: var(--muted);
+      padding: 8px;
+      background: #f9fafb;
+      border-top: 1px solid var(--border);
+    }
   }
+
   @media(max-width:480px){
     .auth-card{padding:26px 20px}
     .auth-logo .logo-icon{font-size:2.5rem}
     .auth-logo h1{font-size:1.3rem}
     .stats{grid-template-columns:1fr 1fr}
     .stat .num{font-size:1.5rem}
-    .bottom-nav-item{font-size:.62rem}
-    .bottom-nav-item .icon{font-size:1.2rem;width:32px;height:32px}
     .toast-container{top:10px;right:10px;left:10px}
     .toast{min-width:auto;font-size:.85rem}
   }
-  @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}}
 
   ::-webkit-scrollbar{width:8px;height:8px}
   ::-webkit-scrollbar-track{background:transparent}
   ::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:4px}
   ::-webkit-scrollbar-thumb:hover{background:#94a3b8}
-
   .spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite}
 </style>
 </head>
@@ -418,21 +329,17 @@
       <h1>ExamHub Rwanda</h1>
       <p>East African University Rwanda</p>
     </div>
-
     <h2 style="text-align:center;font-size:1.1rem;font-weight:700;margin-bottom:20px;color:var(--text)">Injira mu konti yawe</h2>
-
     <div class="form-grid">
       <div class="form-group full"><label>Email</label><input type="email" id="loginEmail" placeholder="email@example.com" autocomplete="email"></div>
       <div class="form-group full"><label>Ijambo ry'ibanga</label><input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password"></div>
     </div>
     <p id="loginError" class="error"></p>
-    <button class="btn btn-primary btn-block btn-lg" style="margin-top:16px" onclick="handleLogin(this)">🚀 Injira</button>
-
+    <button class="btn btn-primary btn-block" style="margin-top:16px; height:50px; font-size:1rem;" onclick="handleLogin(this)">🚀 Injira</button>
     <div class="auth-links">
       <div class="divider">cyangwa</div>
       <a href="#" onclick="showRegisterPage(); return false;">📝 Nta konti? Iyandikishe nka umunyeshuri</a>
     </div>
-
     <p style="margin-top:20px;font-size:.72rem;color:var(--muted);text-align:center;padding-top:16px;border-top:1px solid var(--border)">
       Admin demo: <strong>admin@eaur.rw</strong> / <strong>admin123</strong>
     </p>
@@ -447,7 +354,6 @@
       <h1>Kwiyandikisha</h1>
       <p>Umunyeshuri mushya — EAUR</p>
     </div>
-
     <div class="form-grid">
       <div class="form-group"><label>Izina ry'ibanze *</label><input type="text" id="regFirstName" placeholder="Jean"></div>
       <div class="form-group"><label>Izina ry'umuryango *</label><input type="text" id="regLastName" placeholder="Mugisha"></div>
@@ -460,8 +366,7 @@
       <div class="form-group"><label>Trimester *</label><select id="regTrimester"></select></div>
     </div>
     <p id="regError" class="error"></p>
-    <button class="btn btn-success btn-block btn-lg" style="margin-top:16px" onclick="handleRegister(this)">✅ Iyandikishe</button>
-
+    <button class="btn btn-success btn-block" style="margin-top:16px; height:50px; font-size:1rem;" onclick="handleRegister(this)">✅ Iyandikishe</button>
     <div class="auth-links">
       <div class="divider">cyangwa</div>
       <a href="#" onclick="showLoginPage(); return false;">← Usanzwe ufite konti? Injira</a>
@@ -473,7 +378,14 @@
 <div id="studentApp" class="hidden">
   <div class="app-layout">
     <aside class="sidebar" id="studentSidebar">
-      <div class="sidebar-header"><div class="logo-icon">🎓</div><div><h2>ExamHub</h2><small>EAUR Student</small></div></div>
+      <div class="sidebar-header">
+        <div class="logo-area">
+          <div class="logo-icon">🎓</div>
+          <div><h2>ExamHub</h2><small>EAUR Student</small></div>
+        </div>
+        <!-- BUTO YO GUFUNGA SIDEBAR -->
+        <button class="sidebar-close" onclick="closeSidebar()">✕</button>
+      </div>
       <div class="sidebar-user">
         <div class="avatar" id="studentAvatar">?</div>
         <div class="info"><div class="name" id="sidebarName">—</div><div class="role" id="sidebarRole">Umunyeshuri</div></div>
@@ -505,17 +417,10 @@
         </div>
       </section>
 
-      <!-- ENROLLED CAT PAGE -->
       <section class="page-section" id="page-cat">
-        <div class="page-header">
-          <div>
-            <h1>Enrolled CAT</h1>
-            <p>CAT zawe zose ku isomo</p>
-          </div>
-        </div>
-
+        <div class="page-header"><div><h1>Enrolled CAT</h1><p>CAT zawe zose ku isomo</p></div></div>
         <div class="card">
-          <div class="card-header"><h2><span class="emoji">🔍</span>Shakisha no Kuyungurura</h2></div>
+          <div class="card-header"><h2><span class="emoji">🔍</span>Shakisha</h2></div>
           <div class="search-box"><input type="text" id="catSearch" placeholder="Shakisha ku isomo..." oninput="renderStudentCATs()"></div>
           <div class="filters">
             <select id="catFilterSemester" onchange="renderStudentCATs()">
@@ -526,7 +431,6 @@
             </select>
           </div>
         </div>
-
         <div id="studentCATs"></div>
       </section>
 
@@ -540,12 +444,6 @@
         <div class="card" id="profileCard"></div>
       </section>
     </main>
-    <nav class="bottom-nav">
-      <button class="bottom-nav-item active" data-page="home" onclick="studentNav('home')"><span class="icon">🏠</span><span>Home</span></button>
-      <button class="bottom-nav-item enrolled" data-page="cat" onclick="studentNav('cat')"><span class="icon">📝</span><span>CAT</span></button>
-      <button class="bottom-nav-item" data-page="pdfs" onclick="studentNav('pdfs')"><span class="icon">📄</span><span>PDFs</span></button>
-      <button class="bottom-nav-item" data-page="profile" onclick="studentNav('profile')"><span class="icon">👤</span><span>Profile</span></button>
-    </nav>
   </div>
 </div>
 
@@ -553,7 +451,14 @@
 <div id="adminApp" class="hidden">
   <div class="app-layout">
     <aside class="sidebar" id="adminSidebar">
-      <div class="sidebar-header"><div class="logo-icon">🛡️</div><div><h2>ExamHub</h2><small>Admin Panel</small></div></div>
+      <div class="sidebar-header">
+        <div class="logo-area">
+          <div class="logo-icon">🛡️</div>
+          <div><h2>ExamHub</h2><small>Admin Panel</small></div>
+        </div>
+        <!-- BUTO YO GUFUNGA SIDEBAR -->
+        <button class="sidebar-close" onclick="closeAdminSidebar()">✕</button>
+      </div>
       <div class="sidebar-user">
         <div class="avatar" style="background:linear-gradient(135deg,#dc3545,#ffc107)">A</div>
         <div class="info"><div class="name" id="adminName">Admin</div><div class="role">Super Admin</div></div>
@@ -631,7 +536,7 @@
 
         <div class="card">
           <div class="card-header"><h2><span class="emoji">📊</span>Amanota yose</h2></div>
-          <div class="search-box"><input type="text" id="searchResults" placeholder="Shakisha ku izina, isomo cyangwa ishuri..." oninput="renderAllResults()"></div>
+          <div class="search-box"><input type="text" id="searchResults" placeholder="Shakisha ku izina, isomo..." oninput="renderAllResults()"></div>
           <div class="filters">
             <select id="resFilterSchool" onchange="renderAllResults()"><option value="">Ishuri ryose</option></select>
             <select id="resFilterProgramme" onchange="renderAllResults()"><option value="">Porogaramu yose</option></select>
@@ -644,7 +549,7 @@
           </div>
           <div class="table-wrap">
             <table>
-              <thead><tr><th>Umunyeshuri</th><th>Ishuri</th><th>Porogaramu</th><th>Isomo</th><th>Semester</th><th>CAT/10</th><th>Mid/40</th><th>Final/40</th><th>Total</th><th>Grade</th><th>Ibikorwa</th></tr></thead>
+              <thead><tr><th>Umunyeshuri</th><th>Ishuri</th><th>Isomo</th><th>Semester</th><th>CAT/10</th><th>Mid/40</th><th>Final/40</th><th>Total</th><th>Ibikorwa</th></tr></thead>
               <tbody id="resultsTableBody"></tbody>
             </table>
           </div>
@@ -679,7 +584,7 @@
           </div>
           <div class="table-wrap">
             <table>
-              <thead><tr><th>Izina</th><th>Isomo</th><th>Ishuri</th><th>Porogaramu</th><th>Umwaka</th><th>Trimester</th><th>Ingano</th><th>Ibikorwa</th></tr></thead>
+              <thead><tr><th>Izina</th><th>Isomo</th><th>Ishuri</th><th>Umwaka</th><th>Ibikorwa</th></tr></thead>
               <tbody id="pdfsTableBody"></tbody>
             </table>
           </div>
@@ -714,17 +619,10 @@
         </div>
       </section>
     </main>
-    <nav class="bottom-nav">
-      <button class="bottom-nav-item active" data-page="dashboard" onclick="adminNav('dashboard')"><span class="icon">📊</span><span>Dash</span></button>
-      <button class="bottom-nav-item" data-page="students" onclick="adminNav('students')"><span class="icon">👥</span><span>Students</span></button>
-      <button class="bottom-nav-item" data-page="results" onclick="adminNav('results')"><span class="icon">📝</span><span>Results</span></button>
-      <button class="bottom-nav-item" data-page="pdfs" onclick="adminNav('pdfs')"><span class="icon">📄</span><span>PDFs</span></button>
-      <button class="bottom-nav-item" data-page="settings" onclick="adminNav('settings')"><span class="icon">⚙️</span><span>Settings</span></button>
-    </nav>
   </div>
 </div>
 
-<!-- ============ EDIT RESULT MODAL ============ -->
+<!-- ============ MODALS ============ -->
 <div class="modal-overlay" id="editResultModal">
   <div class="modal">
     <div class="modal-header"><h2>✏️ Hindura Amanota</h2><button class="modal-close" onclick="closeEditResult()">✕</button></div>
@@ -750,7 +648,6 @@
   </div>
 </div>
 
-<!-- ============ CHANGE STUDENT PASSWORD MODAL ============ -->
 <div class="modal-overlay" id="changePassModal">
   <div class="modal">
     <div class="modal-header"><h2>🔐 Hindura Ijambo ry'Ibanga</h2><button class="modal-close" onclick="closeChangePass()">✕</button></div>
@@ -769,7 +666,7 @@
 
 <script>
 /* =========================================================
-   EAUR CONFIG
+   EAUR CONFIG & DATA
    ========================================================= */
 const EAUR_CONFIG = {
   campuses: ['Nyagatare Campus','Kigali Campus'],
@@ -867,7 +764,7 @@ document.addEventListener('click', function(e){
 });
 
 /* =========================================================
-   AUTH
+   AUTH & ROUTING
    ========================================================= */
 function showLoginPage(){ $('registerPage').classList.add('hidden'); $('loginPage').classList.remove('hidden'); hideError('loginError'); }
 function showRegisterPage(){ $('loginPage').classList.add('hidden'); $('registerPage').classList.remove('hidden'); hideError('regError'); }
@@ -999,8 +896,7 @@ function studentNav(page){
   document.querySelectorAll('#studentApp .page-section').forEach(s => s.classList.remove('active'));
   $('page-' + page).classList.add('active');
   document.querySelectorAll('#studentSidebar .nav-item[data-page]').forEach(b => b.classList.toggle('active', b.dataset.page === page));
-  document.querySelectorAll('#studentApp .bottom-nav-item').forEach(b => b.classList.toggle('active', b.dataset.page === page));
-  closeSidebar();
+  closeSidebar(); // Gufunga sidebar nyuma yo guhitamo
   window.scrollTo({ top:0, behavior:'smooth' });
 }
 
@@ -1041,9 +937,6 @@ function renderStudentHomeSummary(student){
   }).join('');
 }
 
-/* =========================================================
-   ENROLLED CAT PAGE
-   ========================================================= */
 function renderStudentCATs(){
   if(!currentStudent) return;
   const results = DB.get(DB.keyResults).filter(r => r.studentId === currentStudent.id);
@@ -1062,7 +955,6 @@ function renderStudentCATs(){
     return;
   }
 
-  // Group by semester
   const bySem = {};
   filtered.forEach(r => { const s = r.semester||'Nta semester'; (bySem[s]=bySem[s]||[]).push(r); });
 
@@ -1168,6 +1060,7 @@ function openStudentChangePass(){
   $('changePassModal').classList.add('show');
 }
 
+/* SIDEBAR CONTROLS */
 function openSidebar(){ $('studentSidebar').classList.add('open'); $('overlay').classList.add('show'); }
 function closeSidebar(){ $('studentSidebar').classList.remove('open'); $('overlay').classList.remove('show'); }
 
@@ -1196,8 +1089,7 @@ function adminNav(page){
   document.querySelectorAll('#adminApp .page-section').forEach(s => s.classList.remove('active'));
   $('admin-page-' + page).classList.add('active');
   document.querySelectorAll('#adminSidebar .nav-item[data-page]').forEach(b => b.classList.toggle('active', b.dataset.page === page));
-  document.querySelectorAll('#adminApp .bottom-nav-item').forEach(b => b.classList.toggle('active', b.dataset.page === page));
-  closeAdminSidebar();
+  closeAdminSidebar(); // Gufunga sidebar
   window.scrollTo({ top:0, behavior:'smooth' });
 }
 
@@ -1361,7 +1253,7 @@ function renderAllResults(){
 
   const tbody = $('resultsTableBody');
   if(!enriched.length){
-    tbody.innerHTML = `<tr><td colspan="11"><div class="empty-state"><div class="icon">📭</div><p>Nta manota ahuye n'ibyo washakishije</p></div></td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="9"><div class="empty-state"><div class="icon">📭</div><p>Nta manota ahuye n'ibyo washakishije</p></div></td></tr>`;
     return;
   }
   tbody.innerHTML = enriched.map(r => {
@@ -1369,12 +1261,10 @@ function renderAllResults(){
     return `<tr>
       <td><strong>${r.student.firstName} ${r.student.lastName}</strong></td>
       <td>${r.student.school}</td>
-      <td>${r.student.programme}</td>
       <td>${r.subject}</td>
       <td>${r.semester}</td>
       <td>${r.cat}/10</td><td>${r.midterm}/40</td><td>${r.final}/40</td>
       <td class="total-cell">${total}</td>
-      <td>${gradeBadge(total)}</td>
       <td style="white-space:nowrap">
         <button class="btn btn-primary btn-sm" onclick="openEditResult('${r.id}')" title="Hindura">✏️</button>
         <button class="btn btn-danger btn-sm" onclick="deleteResult('${r.id}')" title="Siba">🗑</button>
@@ -1514,10 +1404,7 @@ function renderAdminPdfs(){
       <td><strong>${p.title}</strong></td>
       <td>${p.subject}</td>
       <td>${p.school}</td>
-      <td>${p.programme}</td>
       <td>${p.year}</td>
-      <td>${p.trimester}</td>
-      <td>${formatBytes(p.size)}</td>
       <td style="white-space:nowrap">
         <button class="btn btn-primary btn-sm" onclick="openPdf('${p.id}')">👁</button>
         <button class="btn btn-danger btn-sm" onclick="deletePdf('${p.id}')">🗑</button>
