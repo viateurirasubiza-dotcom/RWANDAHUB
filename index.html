@@ -27,7 +27,6 @@
   @keyframes fadeIn{from{opacity:0}to{opacity:1}}
   @keyframes fadeInUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
   @keyframes fadeInDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
-  @keyframes fadeInLeft{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
   @keyframes scaleIn{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
   @keyframes popIn{0%{opacity:0;transform:scale(.6)}70%{transform:scale(1.05)}100%{opacity:1;transform:scale(1)}}
   @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
@@ -144,11 +143,12 @@
   .page-header h1{font-size:1.5rem;font-weight:800;color:var(--text)}
   .page-header p{font-size:.88rem;color:var(--muted)}
 
-  /* TOPBAR (kuri mobile) */
+  /* TOPBAR (kuri mobile) - HANO HARI IBINYURANYE */
   .mobile-topbar{
     display:none;background:linear-gradient(135deg, #fff, #f8fafc);
-    padding:12px 16px;border-bottom:1px solid var(--border);
-    position:sticky;top:0;z-index:50;align-items:center;justify-content:space-between;
+    padding:10px 16px;border-bottom:1px solid var(--border);
+    position:sticky;top:0;z-index:50;
+    align-items:center;justify-content:space-between; /* Ibi bituma menu iba ibumoso, ifoto ibe iburyo */
     box-shadow:0 2px 10px rgba(0,0,0,.05);
   }
   .mobile-topbar .hamburger{
@@ -157,7 +157,16 @@
     transition:background .2s, transform .2s;display:flex;align-items:center;justify-content:center;
   }
   .mobile-topbar .hamburger:active{background:#e2e8f0;transform:scale(.9)}
-  .mobile-topbar h2{font-size:1.05rem;font-weight:800;color:var(--primary-dark);letter-spacing:-.5px}
+  .mobile-topbar h2{font-size:1.05rem;font-weight:800;color:var(--primary-dark);letter-spacing:-.5px; text-align:center; flex:1;} /* Flex:1 bituma title iba hagati */
+  
+  .mobile-profile-btn{
+    width:38px;height:38px;border-radius:50%;
+    background:linear-gradient(135deg,#e0e7ff,#c7d2fe);
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.2rem; cursor:pointer; border:2px solid #fff;
+    box-shadow:0 2px 8px rgba(0,0,0,.1); transition:transform .2s;
+  }
+  .mobile-profile-btn:active{transform:scale(.9)}
 
   .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99;animation:fadeIn .25s;backdrop-filter:blur(2px)}
   .overlay.show{display:block}
@@ -266,14 +275,14 @@
   .auth-links .divider::before,.auth-links .divider::after{content:'';flex:1;height:1px;background:var(--border)}
 
   /* ============================================================
-     MOBILE RESPONSIVE (HANO HARI IBINYURANYE)
+     MOBILE RESPONSIVE
      ============================================================ */
   @media(max-width:900px){
     .sidebar{transform:translateX(-100%)}
     .sidebar.open{transform:translateX(0)}
-    .sidebar-close{display:flex;} /* Erekana buto yo gufunga kuri telefone */
-    .main-content{margin-left:0;padding:16px;padding-bottom:24px;} /* Nta bottom nav ikibaho, tugabanya padding yo hepfo */
-    .mobile-topbar{display:flex}
+    .sidebar-close{display:flex;}
+    .main-content{margin-left:0;padding:16px;padding-bottom:24px;}
+    .mobile-topbar{display:flex;}
     .page-header h1{font-size:1.25rem}
     .form-grid{grid-template-columns:1fr}
     .stats{grid-template-columns:repeat(2,1fr);gap:12px}
@@ -383,7 +392,6 @@
           <div class="logo-icon">🎓</div>
           <div><h2>ExamHub</h2><small>EAUR Student</small></div>
         </div>
-        <!-- BUTO YO GUFUNGA SIDEBAR -->
         <button class="sidebar-close" onclick="closeSidebar()">✕</button>
       </div>
       <div class="sidebar-user">
@@ -402,10 +410,11 @@
     </aside>
     <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
     <main class="main-content">
+      <!-- MOBILE TOPBAR YAHINDUWE: MENU IBUMOSO, USER ICON IBURYO -->
       <div class="mobile-topbar">
         <button class="hamburger" onclick="openSidebar()">☰</button>
         <h2>ExamHub EAUR</h2>
-        <div class="avatar" id="mobileAvatar" style="width:34px;height:34px;font-size:.9rem">?</div>
+        <div class="mobile-profile-btn" id="mobileAvatar" onclick="studentNav('profile')" title="Profile">👤</div>
       </div>
 
       <section class="page-section active" id="page-home">
@@ -456,7 +465,6 @@
           <div class="logo-icon">🛡️</div>
           <div><h2>ExamHub</h2><small>Admin Panel</small></div>
         </div>
-        <!-- BUTO YO GUFUNGA SIDEBAR -->
         <button class="sidebar-close" onclick="closeAdminSidebar()">✕</button>
       </div>
       <div class="sidebar-user">
@@ -476,10 +484,11 @@
     </aside>
     <div class="overlay" id="adminOverlay" onclick="closeAdminSidebar()"></div>
     <main class="main-content">
+      <!-- MOBILE TOPBAR ADMIN -->
       <div class="mobile-topbar">
         <button class="hamburger" onclick="openAdminSidebar()">☰</button>
         <h2>ExamHub Admin</h2>
-        <div class="avatar" style="width:34px;height:34px;font-size:.9rem;background:linear-gradient(135deg,#dc3545,#ffc107)">A</div>
+        <div class="mobile-profile-btn" style="background:linear-gradient(135deg,#dc3545,#ffc107); color: white;">A</div>
       </div>
 
       <section class="page-section active" id="admin-page-dashboard">
@@ -877,7 +886,10 @@ function enterStudent(){
 
   const inits = initials(student.firstName, student.lastName);
   $('studentAvatar').textContent = inits;
-  $('mobileAvatar').textContent = inits;
+  
+  // KURI MOBILE, TURAKORESHA USER ICON AHO GUKORESHA INITIALS
+  $('mobileAvatar').textContent = '👤'; 
+
   $('sidebarName').textContent = `${student.firstName} ${student.lastName}`;
   $('sidebarRole').textContent = student.programme;
 
@@ -896,7 +908,7 @@ function studentNav(page){
   document.querySelectorAll('#studentApp .page-section').forEach(s => s.classList.remove('active'));
   $('page-' + page).classList.add('active');
   document.querySelectorAll('#studentSidebar .nav-item[data-page]').forEach(b => b.classList.toggle('active', b.dataset.page === page));
-  closeSidebar(); // Gufunga sidebar nyuma yo guhitamo
+  closeSidebar(); 
   window.scrollTo({ top:0, behavior:'smooth' });
 }
 
@@ -1060,7 +1072,6 @@ function openStudentChangePass(){
   $('changePassModal').classList.add('show');
 }
 
-/* SIDEBAR CONTROLS */
 function openSidebar(){ $('studentSidebar').classList.add('open'); $('overlay').classList.add('show'); }
 function closeSidebar(){ $('studentSidebar').classList.remove('open'); $('overlay').classList.remove('show'); }
 
@@ -1089,7 +1100,7 @@ function adminNav(page){
   document.querySelectorAll('#adminApp .page-section').forEach(s => s.classList.remove('active'));
   $('admin-page-' + page).classList.add('active');
   document.querySelectorAll('#adminSidebar .nav-item[data-page]').forEach(b => b.classList.toggle('active', b.dataset.page === page));
-  closeAdminSidebar(); // Gufunga sidebar
+  closeAdminSidebar(); 
   window.scrollTo({ top:0, behavior:'smooth' });
 }
 
